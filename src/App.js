@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import {PrivateRoute,VerifyRoute} from './utils/customRouter'
+import {PublicRoute,PrivateRoute,VerifyRoute} from './utils/customRouter'
 import { 
   BrowserRouter as Router,
   Switch,
@@ -15,28 +15,31 @@ import Home from './containers/Home/Home'
 import Course from './containers/Course/Course'
 import Header from './containers/Header';
 import Footer from './containers/Footer';
+import NotFound from './containers/NotFound';
 
 function App() {
   return (
     <>
-      <Header></Header>
+
       <Router>
         <Switch>
-          <Route exact path='/register' >
+          <PublicRoute exact path='/register' >
               <Register></Register>
-          </Route>
-          <Route exact path='/login' >
+          </PublicRoute>
+          <PublicRoute exact path='/login' >
               <Login></Login>
-          </Route>
+          </PublicRoute>
           <VerifyRoute exact path='/verify' >
               <Verify></Verify>
           </VerifyRoute>
-          <Route exact path='/' >
+          <PublicRoute exact path='/' >
               <Home></Home>
-          </Route>
-          <Route exact path='/course' >
+          </PublicRoute>
+          <PublicRoute exact path='/course/:courseId' >
               <Course></Course>
-          </Route>
+          </PublicRoute>
+          <PublicRoute path="/not-found" ><NotFound></NotFound></PublicRoute>
+          <Redirect to="/not-found"></Redirect>
           {/* <LoginRoute path="/login" exact component={Login}></LoginRoute>
           <SRoute path="/check-out" exact component={CheckOut}></SRoute>
           <SRoute path="/cart" exact component={Cart}></SRoute>
@@ -51,7 +54,6 @@ function App() {
           <Redirect to="/not-found"></Redirect> */}
         </Switch>
       </Router>
-      <Footer></Footer>
     </>
   );
 }

@@ -4,23 +4,22 @@ import {
     Route,
     Redirect
 } from 'react-router-dom';
-export function PrivateRoute({ children, ...rest }) {
+import Header from '../containers/Header';
+import Footer from '../containers/Footer';
+export function PublicRoute({ children, ...rest }) {
     return (
       <Route
         {...rest}
         render={() =>
-          localStorage.todoApp_accessToken ? (
-            children
-          ) : (
-            <Redirect
-              to={{
-                pathname: '/login',
-                // state: { from: location }
-              }}
-            />
-          )
+          <>
+          
+            <Header></Header>
+            {children}
+            <Footer></Footer>
+          </>
         }
-      />
+      ></Route>
+      
     );
 }
 export function VerifyRoute({ children, ...rest }) {
