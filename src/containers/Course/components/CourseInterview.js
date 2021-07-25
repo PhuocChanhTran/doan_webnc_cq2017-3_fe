@@ -1,6 +1,6 @@
 import React,{useContext} from 'react'
 import CourseContext from '../courseContext'
-import {Container, Row, Col, Card, Button, Accordion } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faCalendarTimes } from '@fortawesome/free-regular-svg-icons';
 import Rating from 'react-rating'
@@ -17,19 +17,19 @@ export default function CourseInterview(){
             <h4 className="course-title">{store.course.course_shortdescription}</h4>
             <div>
                 <h4 >
-                    Rating: {initialRating}
+                    Rating: {store.course.averageRating}
                     
-                    <a className="btn" onClick={()=>btnRatingClicked()}><Rating  className = "course-rating" emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={2} initialRating={initialRating} readonly="true"></Rating></a>
+                    <a className="btn" onClick={()=>btnRatingClicked()}><Rating  className = "course-rating" emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={10} initialRating={store.course.averageRating} readonly="true"></Rating></a>
                     <span>
-                        (2300 ratings)
+                        ({store.course.totalReview} ratings)
                     </span>
                 </h4>
                 
                 <div>
-                    34000 students
+                    {store.course.totalStudent} students
                 </div>
                 <div>
-                    Created By Jonathan Lee
+                    Created By {store.course.lecturer}
                 </div>
                 <div>
                     <span><FontAwesomeIcon icon={faCalendarTimes}></FontAwesomeIcon> Last Updated: {getFormattedDate(store.course.last_update)}</span>

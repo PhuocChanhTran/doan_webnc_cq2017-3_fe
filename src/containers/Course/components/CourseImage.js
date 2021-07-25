@@ -24,7 +24,7 @@ export default function CourseImage(){
                         </Card.Text>
                     </Col>
                     <Col>
-                        <Card.Text><a className="btn" onClick={()=>testOnclicked()}><FontAwesomeIcon icon={faHeart} size="lg" color="red" ></FontAwesomeIcon></a>Wishlist(1400)
+                        <Card.Text><a className="btn" onClick={()=>testOnclicked()}><FontAwesomeIcon icon={faHeart} size="lg" color="red" ></FontAwesomeIcon></a>Wishlist({store.course.totalWishList})
                         </Card.Text>
                     </Col>
                 </Row>
