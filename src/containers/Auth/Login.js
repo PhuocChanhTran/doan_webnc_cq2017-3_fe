@@ -5,7 +5,7 @@ import {login, parseJwt} from "../../services/auth.service"
 import Swal from "sweetalert2";
 function Login(){
     const history = useHistory();
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit  } = useForm();
     const onSubmit = async(data) => {
         console.log(data);
         try{

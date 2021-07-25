@@ -1,5 +1,4 @@
 import React from 'react'
-import {parseJwt} from '../services/auth.service'
 function Footer(){
     
     return (

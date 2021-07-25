@@ -5,7 +5,7 @@ import {registerAccount} from '../../services/auth.service';
 import Swal from "sweetalert2";
 function Register(){
     const history = useHistory();
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
     const onSubmit = async  function (user) {
 		console.log(user);
         try{

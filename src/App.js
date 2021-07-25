@@ -1,10 +1,10 @@
-import logo from './logo.svg';
+
 import './App.css';
-import {PublicRoute,PrivateRoute,VerifyRoute} from './utils/customRouter'
+import {PublicRoute,VerifyRoute} from './utils/customRouter'
 import { 
   BrowserRouter as Router,
   Switch,
-  Route,
+  // Route,
   Redirect,
 } from 'react-router-dom';
 import Register from './containers/Auth/Register'
@@ -13,8 +13,6 @@ import Verify from './containers/Auth/VerifyOTP'
 
 import Home from './containers/Home/Home'
 import Course from './containers/Course/Course'
-import Header from './containers/Header';
-import Footer from './containers/Footer';
 import NotFound from './containers/NotFound';
 
 function App() {

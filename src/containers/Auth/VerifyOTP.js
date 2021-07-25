@@ -1,11 +1,11 @@
 import React from 'react'
-import { useHistory,NavLink } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import {verifyEmail , resendOTP} from "../../services/auth.service"
 function Verify(){
     const history = useHistory();
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
     const onSubmit = async(data) => {
         console.log(data)
         try{

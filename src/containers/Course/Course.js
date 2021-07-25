@@ -1,101 +1,268 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useReducer }  from 'react'
+import courseReducer from './courseReducer'
+import CourseContext from './courseContext'
 import { useParams } from 'react-router';
 import {getCourseSingleCourse} from '../../services/course.service'
-import {Container, Row, Col, Card, Button} from 'react-bootstrap';
+import {Container, Row, Col, Card, Button, Accordion } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faCalendarTimes } from '@fortawesome/free-regular-svg-icons';
-import {FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, EmailShareButton, EmailIcon} from 'react-share';
+import {  faCalendarTimes } from '@fortawesome/free-regular-svg-icons';
 import Rating from 'react-rating'
+import SectionContextAwareToggle from './components/SectionContextAwareToggle'
+import VideoContextAwareToggle from './components/VideoContextAwareToggle'
+import Review from './components/Review';
+import CourseImage from './components/CourseImage'
+import CourseInterview from './components/CourseInterview'
+import {Redirect} from 'react-router-dom'
 function Course(){
     const  {courseId} = useParams();
     const initialRating = 4;
+    const initialCourseState = {
+        course:{},
+    };
+    const [store, dispatch] = useReducer(courseReducer, initialCourseState);
+
     useEffect(function () { 
-        console.log(courseId);
         async function loadSingleCourse() {
             const res = await getCourseSingleCourse(courseId);
-            console.log(res.data);
+            if(res.status===200){
+                dispatch({
+                    type: 'init',
+                    payload: {
+                        course: res.data,
+                    }
+                });
+            }
+            if(res.status ===204){
+                dispatch({
+                    type: 'init',
+                    payload: {
+                        course: null,
+                    }
+                });
+            }
         }
         loadSingleCourse();
-    })
+    },[]);
     const btnRatingClicked = () =>{
+        console.log(store);
         console.log("Btn rating clicked");
     }
     return (
-        <div className="course-content">
-            <Container  >
-                <Row className="justify-content-md-center course-image-row">
-                    <Col sm={4}>
-                        <Card border="light" style={{ width: '350px' }}>
-                            <Card.Img className="card-img-img" variant="top" src="/logo192.png" />
-                            <Card.Body className="card-img-body">
-                                <Row>
-                                    <Col>
-                                        <Card.Text>Share: 
-                                            {/* <Button variant="primary">Primary</Button>{' '} */}
-                                            <FacebookShareButton><FacebookIcon size={32} round={true}></FacebookIcon></FacebookShareButton>
-                                            <TwitterShareButton><TwitterIcon size={32} round={true}></TwitterIcon></TwitterShareButton>
-                                            <EmailShareButton><EmailIcon size={32} round={true}></EmailIcon></EmailShareButton>
-                                        </Card.Text>
+        <div>
+            {store.course?(
+                <CourseContext.Provider value={{ store, dispatch }}>
+                <div className="course-content">
+                    <Container  >
+                        <Row className="justify-content-md-start course-row">
+                            <Card className="course-card">
+                                <Row >
+                                    <Col sm={4}>
+                                        <CourseImage></CourseImage>
                                     </Col>
-                                    <Col>
-                                        <Card.Text><a className="btn"><FontAwesomeIcon icon={faHeart} size="lg" color="red" ></FontAwesomeIcon></a>Wishlist(1400)
-                                        </Card.Text>
+                                    <Col  sm={8}>
+                                        <CourseInterview></CourseInterview>
                                     </Col>
                                 </Row>
-                                {/* <Card.Text>
-                                    This is a wider card with supporting text below as a natural lead-in to
-                                    additional content. This content is a little bit longer.
-                                </Card.Text> */}
-                            </Card.Body >
-                            {/* <Card.Footer className="card-img-footer">
-                                <small className="text-muted">Some thing some thing</small>
-                            </Card.Footer> */}
-                        </Card>
-                    </Col>
-                    <Col  sm={8}>
-                        <h1>2021 Complete Python Bootcamp From Zero to Hero in Python</h1>
-                        <h4>Learn Python like a Professional Start from the basics and go all the way to creating your own applications and games</h4>
-                        <div>
-                            <h4>
-                                Rating: {initialRating}
-                                <a className="btn" onClick={()=>btnRatingClicked()}><Rating  emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={2} initialRating={initialRating} readonly="true"></Rating></a>
-                                <span>
-                                    (2300 ratings)
-                                </span>
-                            </h4>
-                            
-                            <div>
-                                34000 students
-                            </div>
-                            <div>
-                                Created By Jonathan Lee
-                            </div>
-                            <div>
-                                <span><FontAwesomeIcon icon={faCalendarTimes}></FontAwesomeIcon> Last Updated: 24/5/2021</span>
-                            </div>
-                            <div>
-                                <Button variant="primary">Add to cart</Button>{' '}
-                                <Button variant="success">Buy Now</Button>{' '}
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
-                <Row className="justify-content-md-start">
-                    <h1>Course Descrition</h1>
-                </Row>
-                <Row className="justify-content-md-start">
-                    <h1>Course content/section/video</h1>
-                </Row>
-                <Row className="justify-content-md-start">
-                    <h1>Teacher</h1>
-                </Row>
-                <Row className="justify-content-md-start">
-                    <h1>Revies</h1>
-                </Row>
-                <Row className="justify-content-md-start">
-                    <h1>5 khoá học khác cùng lĩnh vực được mua nhiều nhất</h1>
-                </Row>
-            </Container>
+                            </Card>
+                        </Row>
+                        <Row className="justify-content-md-start course-row">
+                            <Card  className="course-card">
+                                <Card.Body>
+                                    <Card.Title><h2 className="course-card-title">Course Descriptions</h2></Card.Title>
+                                    <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
+                                    <Card.Text>
+                                        Become a Python Programmer and learn one of employer's most requested skills of 2021!
+    
+                                        This is the most comprehensive, yet straight-forward, course for the Python programming language on Udemy! Whether you have never programmed before, already know basic syntax, or want to learn about the advanced features of Python, this course is for you! In this course we will teach you Python 3.
+    
+                                        With over 100 lectures and more than 21 hours of video this comprehensive course leaves no stone unturned! This course includes quizzes, tests, coding exercises and homework assignments as well as 3 major projects to create a Python project portfolio!
+    
+                                        Learn how to use Python for real-world tasks, such as working with PDF Files, sending emails, reading Excel files, Scraping websites for informations, working with image files, and much more!
+    
+                                        This course will teach you Python in a practical manner, with every lecture comes a full coding screencast and a corresponding code notebook! Learn in whatever manner is best for you!
+    
+                                        We will start by helping you get Python installed on your computer, regardless of your operating system, whether its Linux, MacOS, or Windows, we've got you covered.
+    
+                                        We cover a wide variety of topics, including:
+    
+                                        Command Line Basics
+    
+                                        Installing Python
+    
+                                        Running Python Code
+    
+                                        Strings
+    
+                                        Lists 
+    
+                                        Dictionaries
+    
+                                        Tuples
+    
+                                        Sets
+    
+                                        Number Data Types
+    
+                                        Print Formatting
+    
+                                        Functions
+    
+                                        Scope
+    
+                                        args/kwargs
+    
+                                        Built-in Functions
+    
+                                        Debugging and Error Handling
+    
+                                        Modules
+    
+                                        External Modules
+    
+                                        Object Oriented Programming
+    
+                                        Inheritance
+    
+                                        Polymorphism
+    
+                                        File I/O
+    
+                                        Advanced Methods
+    
+                                        Unit Tests
+    
+                                        and much more!
+    
+                                        You will get lifetime access to over 100 lectures plus corresponding Notebooks for the lectures!
+    
+                                        This course comes with a 30 day money back guarantee! If you are not satisfied in any way, you'll get your money back. Plus you will keep access to the Notebooks as a thank you for trying out the course!
+    
+                                        So what are you waiting for? Learn Python in a way that will advance your career and increase your knowledge, all in a fun and practical way!
+    
+                                        Who this course is for:
+                                        Beginners who have never programmed before.
+                                        Programmers switching languages to Python.
+                                        Intermediate Python programmers who want to level up their skills!
+                                    </Card.Text>
+                                    {/* <Card.Link href="#">Card Link</Card.Link>
+                                    <Card.Link href="#">Another Link</Card.Link> */}
+                                </Card.Body>
+                            </Card>
+                        </Row>
+                        <Row className="justify-content-md-start course-row">
+                            <Card className="course-card">
+                                <Card.Body>
+                                    <Card.Title><h2 className="course-card-title">Course content/section/video</h2></Card.Title>
+                                    <Card.Subtitle className="mb-2 text-muted">26 sections • 161 lectures • 8h 51m total length</Card.Subtitle>
+                                    <Card.Text>
+                                        <Accordion >
+                                            <Card>
+                                                <Card.Header>
+                                                <SectionContextAwareToggle eventKey="0">Section 1 • (3minutes)</SectionContextAwareToggle>
+                                                </Card.Header>
+                                                <Accordion.Collapse eventKey="0">
+                                                <Card.Body>
+                                                    
+                                                    <Accordion >
+                                                        <Card>
+                                                            <Card.Header>
+                                                            <VideoContextAwareToggle eventKey="0">Video 1</VideoContextAwareToggle>
+                                                            </Card.Header>
+                                                            <Accordion.Collapse eventKey="0">
+                                                            <Card.Body>
+                                                                Hello! I'm body
+                                                            </Card.Body>
+                                                            </Accordion.Collapse>
+                                                        </Card>
+                                                        <Card>
+                                                            <Card.Header>
+                                                            <VideoContextAwareToggle eventKey="1">Video 2</VideoContextAwareToggle>
+                                                            </Card.Header>
+                                                            <Accordion.Collapse eventKey="1">
+                                                            <Card.Body>Hello! I'm another body</Card.Body>
+                                                            </Accordion.Collapse>
+                                                        </Card>
+                                                    </Accordion>
+    
+                                                </Card.Body>
+                                                </Accordion.Collapse>
+                                            </Card>
+                                            <Card>
+                                                <Card.Header>
+                                                    <SectionContextAwareToggle eventKey="1">Section 2</SectionContextAwareToggle>
+                                                </Card.Header>
+                                                <Accordion.Collapse eventKey="1">
+                                                <Card.Body>Hello! I'm another body</Card.Body>
+                                                </Accordion.Collapse>
+                                            </Card>
+                                        </Accordion>
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Row>
+                        <Row className="justify-content-md-start course-row">
+                            <Card className="course-card">
+                                <Card.Body>
+                                    <Card.Title>
+                                        <h2 className="course-card-title">Instructor</h2>
+                                        <div><h3>Jonathan Lee</h3></div>
+                                    </Card.Title>
+                                    <Card.Subtitle className="mb-2 text-muted">Harvard University Lecturer</Card.Subtitle>
+                                    <Card.Body>
+                                        <Row className="justify-content-md-center">
+                                            <Col sm={4}>
+                                                <Card.Text>
+                                                    Lecturer Image
+                                                </Card.Text>
+                                                {/* <Card.Img></Card.Img> */}
+                                            </Col>
+                                            <Col sm={8}>
+                                                <Card.Text>
+                                                    Lecturer description
+                                                </Card.Text>
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Card.Body>
+                            </Card>
+                        </Row>
+                        <Row className="justify-content-md-start course-row">
+                            <Card className="course-card">
+                                <Card.Body>
+                                    <Card.Title><h2 className="course-card-title">Reviews</h2></Card.Title>
+                                    <Card.Subtitle className="mb-2 text-muted"> 
+                                        <h4>
+                                            Rating: {initialRating}
+                                            <a className="btn" onClick={()=>btnRatingClicked()}><Rating  emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={2} initialRating={initialRating} readonly="true"></Rating></a>
+                                            <span>
+                                                (2300 ratings)
+                                            </span>
+                                        </h4>
+                                    </Card.Subtitle>
+                                    <Card.Body>
+                                        <Review></Review>
+                                    </Card.Body>
+                                </Card.Body>
+                            </Card>
+                        </Row>
+                        <Row className="justify-content-md-start course-row">
+                            <Card className="course-card">
+                                <Card.Body>
+                                    <Card.Title> <h2 className="course-card-title">5 khoá học khác cùng lĩnh vực được mua nhiều nhất</h2></Card.Title>
+                                    <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
+                                    <Card.Text>
+                                        Some quick example text to build on the card title and make up the bulk of
+                                        the card's content.
+                                    </Card.Text>
+                                    <Card.Link href="#">Card Link</Card.Link>
+                                    <Card.Link href="#">Another Link</Card.Link>
+                                </Card.Body>
+                            </Card>
+                        </Row>
+                    </Container>
+                </div>
+            </CourseContext.Provider>
+            ):(<Redirect to={{pathname:"/not-found"}}></Redirect>)}
         </div>
         
     )
