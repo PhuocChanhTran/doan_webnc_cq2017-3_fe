@@ -239,3 +239,20 @@ body {
 .course-rating{
   color: yellowgreen;
 }
+
+/* profile */
+.profile-card{
+  width: 100%;
+  border: 8px;
+  padding: 10px 10px 10px 10px;
+}
+.profile-image{
+  margin-left: 50px;
+  margin-top: 50px;
+}
+.save-change-btn{
+  padding: 10px 10px 10px 10px;
+}
+.profile-info-row{
+  padding: 10px 10px 10px 10px;
+}

@@ -39,6 +39,29 @@ export function VerifyRoute({ children, ...rest }) {
       />
     );
 }
+export function LoginRoute({ children, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={() =>
+        localStorage.accessToken ? (
+          <>
+            <Header></Header>
+            {children}
+            <Footer></Footer>
+          </>
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              // state: { from: location }
+            }}
+          />
+        )
+      }
+    />
+  );
+}
 // export const SRoute = ({ component: Component, ...rest }) => {
 //     const token = JSON.parse(localStorage.getItem("token"));
 //     return (

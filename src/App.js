@@ -1,5 +1,5 @@
 import './App.css';
-import {PublicRoute,VerifyRoute} from './utils/customRouter'
+import {LoginRoute, PublicRoute,VerifyRoute} from './utils/customRouter'
 import { 
   BrowserRouter as Router,
   Switch,
@@ -13,7 +13,7 @@ import Verify from './containers/Auth/VerifyOTP'
 import Home from './containers/Home/Home'
 import Course from './containers/Course/Course'
 import NotFound from './containers/NotFound';
-
+import Profile from './containers/Profile/Profile';
 function App() {
   return (
     <>
@@ -35,6 +35,9 @@ function App() {
           <PublicRoute exact path='/course/:courseId' >
               <Course></Course>
           </PublicRoute>
+          <LoginRoute exact path='/profile' >
+              <Profile></Profile>
+          </LoginRoute>
           <PublicRoute path="/not-found" ><NotFound></NotFound></PublicRoute>
           <Redirect to="/not-found"></Redirect>
           {/* <LoginRoute path="/login" exact component={Login}></LoginRoute>
