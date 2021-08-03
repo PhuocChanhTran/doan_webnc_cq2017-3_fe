@@ -4,7 +4,7 @@ import "../App.css";
 export default function Footer(props) {
   return (
     <div>
-      <footer className="footer-section spad pb-0">
+      <footer className="footer-section spad pb-0 " style={{backgroundColor: "white"}} >
     <div className="footer-top">
       <div className="footer-warp">
         <div className="row">

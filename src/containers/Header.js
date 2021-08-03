@@ -1,7 +1,16 @@
 import React from "react";
+import {useHistory} from 'react-router-dom';
+
 import "../App.css";
 
 export default function Header(props) {
+  const history = useHistory();
+    const signOutBtn_Clicked = () => {
+        delete  localStorage.userEmail;
+        delete localStorage.accessToken;
+        delete localStorage.refreshToken;
+        history.push('/');
+    }
   return (
     <div>
       <header className="header-section">
@@ -19,6 +28,19 @@ export default function Header(props) {
               <a href className="site-btn header-btn">
                 Login
               </a>
+              <div>
+                {localStorage.userEmail ? (
+                  <span>
+                    username: {localStorage.userEmail}
+                    <button onClick={() => signOutBtn_Clicked()}>
+                      Signout
+                    </button>
+                  </span>
+                ) : (
+                  <span></span>
+                )}
+              </div>
+
               <nav className="main-menu">
                 <ul>
                   <li>
@@ -43,12 +65,6 @@ export default function Header(props) {
         </div>
       </header>
       <div className="page-info-section set-bg" data-setbg="img/page-bg/1.jpg">
-        <div className="container">
-          <div className="site-breadcrumb">
-            <a href="#">Home</a>
-            <span>Courses</span>
-          </div>
-        </div>
       </div>
       <section className="search-section ss-other-page">
         <div className="container">
@@ -61,13 +77,8 @@ export default function Header(props) {
             <div className="row">
               <div className="col-lg-10 offset-lg-1">
                 {/* search form */}
-                <form className="course-search-form">
+                <form className="course-search-form text-left">
                   <input type="text" placeholder="Course" />
-                  <input
-                    type="text"
-                    className="last-m"
-                    placeholder="Category"
-                  />
                   <button className="site-btn btn-dark">Search Couse</button>
                 </form>
               </div>
