@@ -216,7 +216,7 @@ body {
   border: 8px;
   padding: 10px 10px 10px 10px;
 }
-.course-card-title { color: #534d17; font-family: 'Trocchi', serif; font-size: 35px; font-weight: bold; line-height: 48px; margin: 0; }
+.course-card-title { color: #115c66; font-family: 'Trocchi', serif; font-size: 35px; font-weight: bold; line-height: 48px; margin: 0; }
 .course-section-card-button{
   height: 100%;
   width: 100%;
@@ -254,5 +254,11 @@ body {
   padding: 10px 10px 10px 10px;
 }
 .profile-info-row{
+  padding: 10px 10px 10px 10px;
+}
+
+.dashboard-content{
+  min-height: 600px;
+  background-color: #f5f7e0;
   padding: 10px 10px 10px 10px;
 }

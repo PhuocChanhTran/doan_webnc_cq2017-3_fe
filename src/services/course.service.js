@@ -32,3 +32,28 @@ export function getCoursSearch(search, page) {
 export function getCoursesSearchSort(search, page) {
   return axios.get(`/courses/search?key=${search}&page=${page}`);
 }
+<<<<<<< Updated upstream
+=======
+  
+export function getCourseSingleCourse(courseId){
+    return axios.get(`/courses/${courseId}`);
+}
+
+export function loadAllCategory(){
+    return axios.get('/category/all');
+}
+export function loadAllPostedCourse(){
+    return axios.get('/courses/me');
+}
+
+export function postNewCourse(newCourse){
+    return axios.post(`/courses/`,{
+        courseName: newCourse.courseName,
+        shortDescription: newCourse.shortDescription,
+        categoryId: newCourse.categoryId,
+        price: parseInt(newCourse.price),
+        saleoff: parseFloat(newCourse.saleoff),
+        sectionCount: parseInt(newCourse.sectionCount)
+    });
+}
+>>>>>>> Stashed changes

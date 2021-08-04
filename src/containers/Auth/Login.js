@@ -37,6 +37,7 @@ function Login(){
                 localStorage.refreshToken = res.data.refreshToken;  
                 const obj = parseJwt(res.data.accessToken);
                 localStorage.userEmail = obj.user_email;
+                localStorage.userRole = obj.user_role;
                 history.push('/');
             }
            

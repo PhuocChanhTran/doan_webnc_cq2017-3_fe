@@ -1,5 +1,5 @@
 import './App.css';
-import {LoginRoute, PublicRoute,VerifyRoute} from './utils/customRouter'
+import {LoginRoute, PublicRoute,VerifyRoute, LecturerRoute} from './utils/customRouter'
 import { 
   BrowserRouter as Router,
   Switch,
@@ -14,6 +14,7 @@ import Home from './containers/Home/Home'
 import Course from './containers/Course/Course'
 import NotFound from './containers/NotFound';
 import Profile from './containers/Profile/Profile';
+import LecturerDashBoard from './containers/Daskboard/LecturerDashBoard';
 function App() {
   return (
     <>
@@ -38,6 +39,9 @@ function App() {
           <LoginRoute exact path='/profile' >
               <Profile></Profile>
           </LoginRoute>
+          <LecturerRoute exact path='/mycourse' >
+              <LecturerDashBoard></LecturerDashBoard>
+          </LecturerRoute>
           <PublicRoute path="/not-found" ><NotFound></NotFound></PublicRoute>
           <Redirect to="/not-found"></Redirect>
           {/* <LoginRoute path="/login" exact component={Login}></LoginRoute>

@@ -62,6 +62,29 @@ export function LoginRoute({ children, ...rest }) {
     />
   );
 }
+export function LecturerRoute({ children, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={() =>
+        localStorage.accessToken && localStorage.userRole ==="lecturer" ? (
+          <>
+            <Header></Header>
+            {children}
+            <Footer></Footer>
+          </>
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              // state: { from: location }
+            }}
+          />
+        )
+      }
+    />
+  );
+}
 // export const SRoute = ({ component: Component, ...rest }) => {
 //     const token = JSON.parse(localStorage.getItem("token"));
 //     return (
