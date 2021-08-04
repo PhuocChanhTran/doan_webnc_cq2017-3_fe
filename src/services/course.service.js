@@ -32,8 +32,6 @@ export function getCoursSearch(search, page) {
 export function getCoursesSearchSort(search, page) {
   return axios.get(`/courses/search?key=${search}&page=${page}`);
 }
-<<<<<<< Updated upstream
-=======
   
 export function getCourseSingleCourse(courseId){
     return axios.get(`/courses/${courseId}`);
@@ -56,4 +54,3 @@ export function postNewCourse(newCourse){
         sectionCount: parseInt(newCourse.sectionCount)
     });
 }
->>>>>>> Stashed changes
