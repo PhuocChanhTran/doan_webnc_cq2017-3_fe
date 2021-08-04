@@ -21,10 +21,6 @@ export function getCoursesByCategoryService(page, category_id) {
   return axios.get(`/courses/category?id=${category_id}&page=${page}`);
 }
 
-export function getCourseSingleCourse(courseId) {
-  return axios.get(`/courses/${courseId}`);
-}
-
 export function getCoursSearch(search, page) {
   return axios.get(`/courses/query?search=${search}&page=${page}`);
 }

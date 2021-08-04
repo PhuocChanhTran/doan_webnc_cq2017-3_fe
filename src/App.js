@@ -57,7 +57,6 @@ function App() {
           <SRoute path="/add-book" exact component={AddBook}></SRoute>
           <Redirect to="/not-found"></Redirect> */}
           </Switch>
-        </AppProvider>
       </Router>
     </>
   );
