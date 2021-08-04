@@ -52,7 +52,8 @@ function App() {
           <SRoute path="/my-shop" exact component={Myshop}></SRoute>
           <SRoute path="/add-book" exact component={AddBook}></SRoute>
           <Redirect to="/not-found"></Redirect> */}
-        </Switch>
+          </Switch>
+        </AppProvider>
       </Router>
     </>
   );
