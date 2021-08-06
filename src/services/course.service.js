@@ -50,3 +50,19 @@ export function postNewCourse(newCourse){
         sectionCount: parseInt(newCourse.sectionCount)
     });
 }
+
+export function updateCourseImage(courseId,formdata){
+  return axios.patch(`/courses/${courseId}/image`,formdata)
+}
+
+export function updateCourseBasicInfo(courseId,updatedCourse){
+  return axios.patch(`/courses/${courseId}`,{
+      courseName: updatedCourse.courseName,
+      shortDescription: updatedCourse.shortDescription,
+      categoryId: parseInt(updatedCourse.categoryId),
+      price: parseInt(updatedCourse.price),
+      saleoff: parseFloat(updatedCourse.saleoff),
+      sectionCount: parseInt(updatedCourse.sectionCount),
+      courseStatus: parseInt(updatedCourse.courseStatus)
+  });
+}
