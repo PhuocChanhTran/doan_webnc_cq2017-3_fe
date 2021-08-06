@@ -15,6 +15,7 @@ import Course from './containers/Course/Course'
 import NotFound from './containers/NotFound';
 import Profile from './containers/Profile/Profile';
 import LecturerDashBoard from './containers/Daskboard/LecturerDashBoard';
+import CourseEditing from './containers/CourseEditing/CourseEditing';
 function App() {
   return (
     <>
@@ -41,6 +42,9 @@ function App() {
           </LoginRoute>
           <LecturerRoute exact path='/mycourse' >
               <LecturerDashBoard></LecturerDashBoard>
+          </LecturerRoute>
+          <LecturerRoute exact path='/mycourse/:courseId' >
+              <CourseEditing></CourseEditing>
           </LecturerRoute>
           <PublicRoute path="/not-found" ><NotFound></NotFound></PublicRoute>
           <Redirect to="/not-found"></Redirect>

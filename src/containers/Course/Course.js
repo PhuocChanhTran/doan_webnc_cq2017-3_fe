@@ -3,6 +3,8 @@ import courseReducer from './courseReducer'
 import CourseContext from './courseContext'
 import { useParams } from 'react-router';
 import {getCourseSingleCourse} from '../../services/course.service'
+import {getLecturerInfo} from '../../services/user.service'
+
 import {Container, Row, Col, Card } from 'react-bootstrap';
 
 import CourseImage from './components/CourseImage'
@@ -17,6 +19,7 @@ function Course(){
     const  {courseId} = useParams();
     const initialCourseState = {
         course:{},
+        lecturer: {}
     };
     const [store, dispatch] = useReducer(courseReducer, initialCourseState);
 
@@ -30,6 +33,13 @@ function Course(){
                         course: res.data,
                     }
                 });
+                const lecturerRes = await getLecturerInfo(res.data.user_id);
+                dispatch({
+                    type: 'load-lecturer',
+                    payload:{
+                        lecturer: lecturerRes.data
+                    }
+                })
             }
             if(res.status ===204){
                 dispatch({

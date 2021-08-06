@@ -10,6 +10,7 @@ export default function CourseInterview(){
     const {store } = useContext(CourseContext)
     const btnRatingClicked = () =>{
         console.log("Btn rating clicked");
+        console.log(store);
     }
     return (
         <div>
@@ -29,7 +30,7 @@ export default function CourseInterview(){
                     {store.course.totalStudent} students
                 </div>
                 <div>
-                    Created By {store.course.lecturer}
+                    Created By {store.lecturer.username}
                 </div>
                 <div>
                     <span><FontAwesomeIcon icon={faCalendarTimes}></FontAwesomeIcon> Last Updated: {getFormattedDate(store.course.last_update)}</span>

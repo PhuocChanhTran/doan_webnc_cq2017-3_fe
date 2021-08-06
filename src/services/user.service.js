@@ -2,6 +2,10 @@ import axios from "../utils/axios"
 export function getUserInfo(){
     return axios.get('/users/me');
 }
+export function getLecturerInfo(userId){
+    console.log(userId);
+    return axios.get('/users/'+userId);
+}
 export function updateUserInfo(updatedInfo){
     return axios.patch('/users/update-info',{
         fullname: updatedInfo.fullname,

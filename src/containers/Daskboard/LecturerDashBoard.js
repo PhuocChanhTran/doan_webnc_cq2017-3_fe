@@ -5,6 +5,7 @@ import dashboardReducer from './dashboardReducer'
 import {loadAllCategory,loadAllPostedCourse,postNewCourse} from '../../services/course.service'
 import emptyCourse from '../../assets/images/emptyCourse.jpg'
 import Swal from "sweetalert2";
+import {Link} from 'react-router-dom'
 // const CustomTitle = ({ row }) => (
 //     <div>
 //         {}
@@ -126,17 +127,17 @@ export default function LecturerDashBoard(){
     {
       name: 'Status',
       maxWidth: "30px",
-      cell: row => `${row.course_status}`,
+      cell: row => `${row.course_status && row.course_status === 1?"Hoàn thành":"Chưa hoàn thành"}`,
     },
     {
       name: 'Link',
       button: true,
-      cell: row => <a href="/" target="_blank" rel="noopener noreferrer">View</a>,
+      cell: row => <a href="/" target="_blank" rel="noopener noreferrer"><Link to={"/course/"+row.course_id}>View</Link></a>,
     },
     {
       name: 'Edit Button',
       button: true,
-      cell: () =>  <button type="button">Edit</button>,
+      cell: row =>  <button type="button"><Link to={"/mycourse/"+row.course_id}>Edit</Link></button>,
     },
   ];
   const customStyles = {
@@ -204,9 +205,15 @@ export default function LecturerDashBoard(){
                   // title="My course"
                   columns={columns}
                   data={store.courses?store.courses:[]}
+                  highlightOnHover
                   pagination
-                  paginationServer
-                  // paginationTotalRows={totalRows}
+                  paginationPerPage={10}
+                  paginationRowsPerPageOptions={[10, 15, 25, 50]}
+                  paginationComponentOptions={{
+                    rowsPerPageText: 'Records per page:',
+                    rangeSeparatorText: 'out of',
+                  }}
+                  // onChangePage={page => setPage(page)}
                   // selectableRows
                   // selectableRowsHighlight
                   customStyles={customStyles}
