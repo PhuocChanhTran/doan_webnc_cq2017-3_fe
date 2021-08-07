@@ -66,3 +66,38 @@ export function updateCourseBasicInfo(courseId,updatedCourse){
       courseStatus: parseInt(updatedCourse.courseStatus)
   });
 }
+
+export function addNewSection(courseId,sectionTitle){
+  return axios.post('/sections/',{
+    courseId:courseId,
+    sectionTitle:sectionTitle
+  })
+}
+
+export function updateSection(sectionId,sectionTitle){
+  return axios.patch(`/sections/${sectionId}`,{
+    sectionTitle:sectionTitle
+  })
+}
+export function deleteSection(sectionId){
+  return axios.delete(`/sections/${sectionId}`)
+}
+
+export function addVideo(sectionId,videoTitle){
+  return axios.post('/videos/',{
+    sectionId: sectionId,
+    videoTitle: videoTitle
+  })
+}
+export function updateVideo(videoId,videoTitle,videoPreviewStatus){
+  return axios.patch(`/videos/${videoId}`,{
+    videoTitle: videoTitle,
+    videoPreviewStatus: parseInt(videoPreviewStatus)
+  })
+}
+export function uploadVideo(videoId,formData){
+  return axios.patch(`/videos/${videoId}/upload`,formData)
+}
+export function deleteVideo(videoId){
+  return axios.delete(`/videos/${videoId}`)
+}

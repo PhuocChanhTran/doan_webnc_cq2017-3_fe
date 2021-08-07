@@ -39,6 +39,145 @@ export default function courseEditingReducer(state, action) {
 
             }
         }
+    case 'add-section':
+        return {
+            ...state,
+            course:{
+                ...state.course,
+                sections: [...state.course.sections,action.payload.newSection],
+
+            }
+        }
+    case 'edit-section':
+        return {
+            ...state,
+            course:{
+                ...state.course,
+                sections: state.course.sections.map((s)=>{
+                    if(s.section_id===action.payload.sectionId){
+                        return {
+                            ...s,
+                            section_title:action.payload.sectionTitle
+                        }
+                    }else return s;
+                }),
+
+            }
+        }
+    case 'delete-section':
+        return {
+            ...state,
+            course:{
+                ...state.course,
+                sections: [...state.course.sections.filter((s)=>s.section_id!==action.payload.deletedSectionId)],
+
+            }
+        }    
+    case 'add-video':
+        return {
+            ...state,
+            course:{
+                ...state.course,
+                sections:  state.course.sections.map((s)=>{
+                    if(s.section_id===action.payload.sectionId){
+                        if(s.videos.length  === 0){
+                            return {
+                                ...s,
+                                videos: [action.payload.newVideo]
+                            }
+                        }
+                        else{
+                            return {
+                                ...s,
+                                videos: [...s.videos,action.payload.newVideo]
+                            }
+                        }                       
+                    }else return s;
+                }),
+
+            }
+        }
+    case 'edit-video-title':
+        return {
+            ...state,
+            course:{
+                ...state.course,
+                sections:  state.course.sections.map((s)=>{
+                    if(s.videos.length === 0){
+                        return s;
+                    }
+                    else{
+                        let newVideos = s.videos.map(v=>{
+                            if(v.video_id  === action.payload.videoId){
+                                return {
+                                    ...v,
+                                    video_title: action.payload.videoTitle,
+                                    preview_status: action.payload.videoPreviewStatus
+                                }
+                            }
+                            else{
+                                return v
+                            }      
+                        })
+                        return {
+                            ...s,
+                            videos: newVideos
+                        }               
+                    }
+                }),
+
+            }
+        }   
+    case 'upload-video':
+        return {
+            ...state,
+            course:{
+                ...state.course,
+                sections:  state.course.sections.map((s)=>{
+                    if(s.videos.length === 0){
+                        return s;
+                    }
+                    else{
+                        let newVideos = s.videos.map(v=>{
+                            if(v.video_id  === action.payload.videoId){
+                                return {
+                                    ...v,
+                                    video_path: action.payload.videoPath
+                                }
+                            }
+                            else{
+                                return v
+                            }      
+                        })
+                        return {
+                            ...s,
+                            videos: newVideos
+                        }               
+                    }
+                }),
+
+            }
+        }   
+    case 'delete-video':
+        return {
+            ...state,
+            course:{
+                ...state.course,
+                sections:  state.course.sections.map((s)=>{
+                    if(s.videos.length === 0){
+                        return s;
+                    }
+                    else{
+                        let newVideos = s.videos.filter(v=>v.video_id  !== action.payload.videoId)
+                        return {
+                            ...s,
+                            videos: newVideos
+                        }               
+                    }
+                }),
+
+            }
+        }   
     default:
         return state;
     }
