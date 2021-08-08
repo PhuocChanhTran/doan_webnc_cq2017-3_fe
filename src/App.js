@@ -16,6 +16,8 @@ import NotFound from './containers/NotFound';
 import Profile from './containers/Profile/Profile';
 import LecturerDashBoard from './containers/Daskboard/LecturerDashBoard';
 import CourseEditing from './containers/CourseEditing/CourseEditing';
+import WebCourse  from './containers/WebCourse/WebCourse'
+
 import 'react-quill/dist/quill.snow.css';
 function App() {
   return (
@@ -44,6 +46,16 @@ function App() {
                   <Home></Home>
                 </div>    
               </div> 
+          </HomeRoute>
+          <HomeRoute exact path='/courses/category/web-courses' >
+              <div className="App">
+                <div>
+                  <div id="preloder">
+                    <div className="loader" />
+                  </div>
+                  <WebCourse></WebCourse>
+                </div>    
+              </div>    
           </HomeRoute>
           <HomeRoute exact path='/course/:courseId' >
               <Course></Course>

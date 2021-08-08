@@ -120,3 +120,6 @@ export function postRatingAndFeedBack(feedback,rating, courseId){
     courseId
   });
 }
+export function getWebCourse(){
+  return axios.get(`/courses/category/web-courses`);
+}
