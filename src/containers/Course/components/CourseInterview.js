@@ -12,6 +12,13 @@ export default function CourseInterview(){
         console.log("Btn rating clicked");
         console.log(store);
     }
+    const btnAddToCart_Clicked =() =>{
+        console.log("btnAddToCart_Clicked");
+    }
+    const btnBuyCourse_Clicked = () =>{
+        console.log("btnBuyCourse_Clicked");
+
+    }
     return (
         <div>
             <h1 className="course-name">{store.course.course_name}</h1>
@@ -36,8 +43,8 @@ export default function CourseInterview(){
                     <span><FontAwesomeIcon icon={faCalendarTimes}></FontAwesomeIcon> Last Updated: {getFormattedDate(store.course.last_update)}</span>
                 </div>
                 <div>
-                    <Button variant="primary">Add to cart</Button>{' '}
-                    <Button variant="success">Buy Course</Button>{' '}
+                    <Button onClick={btnAddToCart_Clicked} variant="primary">Add to cart</Button>{' '}
+                    <Button onClick={btnBuyCourse_Clicked} variant="success">Buy Course</Button>{' '}
                 </div>
             </div>
         </div>

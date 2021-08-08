@@ -7,8 +7,8 @@ import CourseContext from '../courseContext';
 import emptyCourse from '../../../assets/images/emptyCourse.jpg'
 export default function CourseImage(){
     const {store } = useContext(CourseContext)
-    const testOnclicked = () =>{
-        console.log(store);
+    const btnWishList_Clicked = () =>{
+        console.log(store.course.course_id);
     }
     return (
         <Card border="light" style={{ width: '350px' }}>
@@ -24,7 +24,7 @@ export default function CourseImage(){
                         </Card.Text>
                     </Col>
                     <Col>
-                        <Card.Text><a className="btn" onClick={()=>testOnclicked()}><FontAwesomeIcon icon={faHeart} size="lg" color="red" ></FontAwesomeIcon></a>Wishlist({store.course.totalWishList})
+                        <Card.Text><a className="btn" onClick={()=>btnWishList_Clicked()}><FontAwesomeIcon icon={faHeart} size="lg" color="red" ></FontAwesomeIcon></a>Wishlist({store.course.totalWishList})
                         </Card.Text>
                     </Col>
                 </Row>
