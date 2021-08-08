@@ -32,8 +32,18 @@ function App() {
           <VerifyRoute exact path='/verify' >
               <Verify></Verify>
           </VerifyRoute>
-          <HomeRoute exact path='/' >
+          {/* <HomeRoute exact path='/' >
               <Home></Home>
+          </HomeRoute> */}
+          <HomeRoute exact path='/' >
+          <div className="App">
+                <div>
+                  <div id="preloder">
+                    <div className="loader" />
+                  </div>
+                  <Home></Home>
+                </div>    
+              </div> 
           </HomeRoute>
           <HomeRoute exact path='/course/:courseId' >
               <Course></Course>
