@@ -1,5 +1,5 @@
 import './App.css';
-import {LoginRoute, PublicRoute,VerifyRoute, LecturerRoute} from './utils/customRouter'
+import {LoginRoute, UserRoute,VerifyRoute, LecturerRoute, HomeRoute} from './utils/customRouter'
 import { 
   BrowserRouter as Router,
   Switch,
@@ -23,31 +23,31 @@ function App() {
 
       <Router>
         <Switch>
-          <PublicRoute exact path='/register' >
+          <LoginRoute exact path='/register' >
               <Register></Register>
-          </PublicRoute>
-          <PublicRoute exact path='/login' >
+          </LoginRoute>
+          <LoginRoute exact path='/login' >
               <Login></Login>
-          </PublicRoute>
+          </LoginRoute>
           <VerifyRoute exact path='/verify' >
               <Verify></Verify>
           </VerifyRoute>
-          <PublicRoute exact path='/' >
+          <HomeRoute exact path='/' >
               <Home></Home>
-          </PublicRoute>
-          <PublicRoute exact path='/course/:courseId' >
+          </HomeRoute>
+          <HomeRoute exact path='/course/:courseId' >
               <Course></Course>
-          </PublicRoute>
-          <LoginRoute exact path='/profile' >
+          </HomeRoute>
+          <UserRoute exact path='/profile' >
               <Profile></Profile>
-          </LoginRoute>
+          </UserRoute>
           <LecturerRoute exact path='/mycourse' >
               <LecturerDashBoard></LecturerDashBoard>
           </LecturerRoute>
           <LecturerRoute exact path='/mycourse/:courseId' >
               <CourseEditing></CourseEditing>
           </LecturerRoute>
-          <PublicRoute path="/not-found" ><NotFound></NotFound></PublicRoute>
+          <HomeRoute path="/not-found" ><NotFound></NotFound></HomeRoute>
           <Redirect to="/not-found"></Redirect>
           {/* <LoginRoute path="/login" exact component={Login}></LoginRoute>
           <SRoute path="/check-out" exact component={CheckOut}></SRoute>

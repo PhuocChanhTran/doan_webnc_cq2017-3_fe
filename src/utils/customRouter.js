@@ -4,21 +4,49 @@ import {
 } from 'react-router-dom';
 import Header from '../containers/Header';
 import Footer from '../containers/Footer';
-export function PublicRoute({ children, ...rest }) {
-    return (
-      <Route
-        {...rest}
-        render={() =>
+
+export function LoginRoute({ children, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={() =>
+        !localStorage.accessToken ? (
           <>
-          
+        
             <Header></Header>
             {children}
             <Footer></Footer>
           </>
-        }
-      ></Route>
-      
-    );
+        ):
+        (
+          <Redirect
+            to={{
+              pathname: '/',
+              // state: { from: location }
+            }}
+          />
+        )
+      }
+    ></Route>
+    
+  );
+}
+export function HomeRoute({ children, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={() =>
+
+          <>
+        
+            <Header></Header>
+            {children}
+            <Footer></Footer>
+          </>
+      }
+    ></Route>
+    
+  );
 }
 export function VerifyRoute({ children, ...rest }) {
     return (
@@ -39,7 +67,7 @@ export function VerifyRoute({ children, ...rest }) {
       />
     );
 }
-export function LoginRoute({ children, ...rest }) {
+export function UserRoute({ children, ...rest }) {
   return (
     <Route
       {...rest}

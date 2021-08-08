@@ -230,7 +230,7 @@ export default function CourseContent(){
                     }
                 })
                 Swal.fire({
-                    title: "Upload Course image thành công!",
+                    title: "Upload Course Video Successfully!",
                     icon: "success"
                 })
                 setShow(false);
@@ -420,7 +420,7 @@ export default function CourseContent(){
             </Card.Body>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                <Modal.Title>Choose your profile image</Modal.Title>
+                <Modal.Title>Choose Course Video</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form.Group className="position-relative mb-3">
