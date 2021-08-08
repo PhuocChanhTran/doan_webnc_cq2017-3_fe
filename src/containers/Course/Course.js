@@ -2,7 +2,7 @@ import React, {useEffect, useReducer }  from 'react'
 import courseReducer from './courseReducer'
 import CourseContext from './courseContext'
 import { useParams } from 'react-router';
-import {getCourseSingleCourse} from '../../services/course.service'
+import {getCourseSingleCourse,getReviewByCourseId} from '../../services/course.service'
 import {getLecturerInfo} from '../../services/user.service'
 
 import {Container, Row, Col, Card } from 'react-bootstrap';
@@ -19,7 +19,9 @@ function Course(){
     const  {courseId} = useParams();
     const initialCourseState = {
         course:{},
-        lecturer: {}
+        lecturer: {},
+        reviews: [],
+        user:{}
     };
     const [store, dispatch] = useReducer(courseReducer, initialCourseState);
 
@@ -38,6 +40,13 @@ function Course(){
                     type: 'load-lecturer',
                     payload:{
                         lecturer: lecturerRes.data
+                    }
+                })
+                const reviewRes = await getReviewByCourseId(courseId);
+                dispatch({
+                    type: 'load-reviews',
+                    payload:{
+                        reviews: reviewRes.data
                     }
                 })
             }

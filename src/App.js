@@ -16,6 +16,7 @@ import NotFound from './containers/NotFound';
 import Profile from './containers/Profile/Profile';
 import LecturerDashBoard from './containers/Daskboard/LecturerDashBoard';
 import CourseEditing from './containers/CourseEditing/CourseEditing';
+import 'react-quill/dist/quill.snow.css';
 function App() {
   return (
     <>

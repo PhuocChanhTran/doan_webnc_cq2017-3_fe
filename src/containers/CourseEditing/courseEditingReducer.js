@@ -177,6 +177,15 @@ export default function courseEditingReducer(state, action) {
                 }),
 
             }
+        }  
+    case 'post-course-description':
+        return {
+            ...state,
+            course:{
+                ...state.course,
+                course_description: action.payload.courseDescription
+
+            }
         }   
     default:
         return state;

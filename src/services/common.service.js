@@ -14,3 +14,14 @@ export  function getFormattedDate (date){
         return d;
    }
 }
+export function getFormattedDateAllTime(date){
+    if(date===null || date === undefined){
+        return 0;
+    }
+    else{
+        var d = new Date(date);
+        var thisD = new Date();
+
+        return parseInt((thisD-d)/(60*60*1000));
+   }
+}

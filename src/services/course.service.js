@@ -66,6 +66,12 @@ export function updateCourseBasicInfo(courseId,updatedCourse){
       courseStatus: parseInt(updatedCourse.courseStatus)
   });
 }
+export function postCourseDescription(courseId,courseDescription){
+  return axios.patch(`/courses/${courseId}/description`,{
+    description:courseDescription
+  })
+}
+
 
 export function addNewSection(courseId,sectionTitle){
   return axios.post('/sections/',{
@@ -100,4 +106,17 @@ export function uploadVideo(videoId,formData){
 }
 export function deleteVideo(videoId){
   return axios.delete(`/videos/${videoId}`)
+}
+
+
+export function getReviewByCourseId(courseId){
+  return axios.get(`/reviews/${courseId}`);
+}
+
+export function postRatingAndFeedBack(feedback,rating, courseId){
+  return axios.post('/reviews/',{
+    feedback,
+    rating,
+    courseId
+  });
 }

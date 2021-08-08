@@ -11,6 +11,21 @@ export default function courseReducer(state, action) {
           ...state,
           lecturer: action.payload.lecturer
         }
+      case 'load-reviews':
+        return{
+          ...state,
+          reviews: action.payload.reviews
+        }
+      case 'load-user':
+        return{
+          ...state,
+          user: action.payload.user
+        }
+      case 'post-review':
+        return{
+          ...state,
+          reviews: [...state.reviews,action.payload.newReview]
+        }
       default:
         return state;
     }

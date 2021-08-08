@@ -1,10 +1,77 @@
-import React from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Rating from 'react-rating'
 import {Card} from 'react-bootstrap'
+import CourseContext from '../courseContext';
+import emptyUser from '../../../assets/images/emptyUser.png'
+import {getFormattedDate,getFormattedDateAllTime} from '../../../services/common.service'
+import {getUserInfo} from '../../../services/user.service'
+import {postRatingAndFeedBack} from '../../../services/course.service'
+
+import Swal from 'sweetalert2';
 export default function Review(){
-    const initialRating =4;
+    const {store,dispatch} = useContext(CourseContext);
+    const [rate,setRate]  = useState("");
+    const feedBackEle = useRef("");
+
     const btnRatingClicked = (rate) =>{
-        console.log("rating log",rate);
+        console.log(rate);
+        setRate(rate);
+    }
+    useEffect(function(){
+        async function loadCurrentUser(){
+            const res = await getUserInfo();
+            dispatch({
+                type:"load-user",
+                payload:{
+                    user: res.data
+                }
+            })
+        }
+        loadCurrentUser()
+    },[]);
+    const btnComment_Clicked =async () =>{
+        if(rate === "" || !feedBackEle.current.value){
+            Swal.fire({
+                title: "Error",
+                text:"You must rate and leave comment",
+                icon:"warning"
+            })
+        }
+        else{
+            if(!localStorage.accessToken){
+                Swal.fire({
+                    title: "Error",
+                    text:"You must login",
+                    icon:"warning"
+                })
+            }else{
+                if(!store.course.isView){
+                    Swal.fire({
+                        title: "Error",
+                        text:"You must buy this course",
+                        icon:"warning"
+                    })
+                }else{
+                    console.log("comment oke",rate,feedBackEle.current.value);
+                    const res = await postRatingAndFeedBack(feedBackEle.current.value,rate,store.course.course_id);
+                    if(res.status===200){
+                        dispatch({
+                            type:"post-review",
+                            payload:{
+                                newReview: res.data.newReview
+                            }
+                        })
+                       
+                    }else{
+                        Swal.fire({
+                            title: "Error",
+                            text:`${res.data.message}`,
+                            icon:"error"
+                        })
+                    }
+                }
+            }
+        }
     }
     return (
         <Card className="course-card">
@@ -12,10 +79,10 @@ export default function Review(){
                 <Card.Title><h2 className="course-card-title">Reviews</h2></Card.Title>
                 <Card.Subtitle className="mb-2 text-muted"> 
                     <h4>
-                        Rating: {initialRating}
-                        <a className="btn" onClick={()=>btnRatingClicked()}><Rating  emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={2} initialRating={initialRating} readonly="true"></Rating></a>
+                        Rating: {store.course.averageRating?store.course.averageRating:5}
+                        <a className="btn" onClick={()=>btnRatingClicked()}><Rating  emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={2} initialRating={store.course.averageRating?store.course.averageRating:5} readonly="true"></Rating></a>
                         <span>
-                            (2300 ratings)
+                            ({store.course.totalReview} ratings)
                         </span>
                     </h4>
                 </Card.Subtitle>
@@ -23,27 +90,29 @@ export default function Review(){
                     <div className="d-flex justify-content-center row">
                         <div className="d-flex flex-column col-md-8">
                             <div className="d-flex flex-row add-comment-section mt-4 mb-4">
-                                <img className="img-fluid img-responsive rounded-circle mr-2" src="https://i.imgur.com/qdiP4DB.jpg" width="38"></img>
+                                <img className="img-fluid img-responsive rounded-circle mr-2" src={store.user.image?"http://localhost:3001/uploads/profile/"+store.user.image:emptyUser} width="38"></img>
                                 <a className="btn"   >
-                                    <Rating onClick={(rate)=>btnRatingClicked(rate)} onHover={(rate) => document.getElementById('label-onrate').innerHTML = rate || ''} emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={10} initialRating={5}></Rating>
+                                    <Rating onClick={(rate)=>btnRatingClicked(rate)} onHover={(rate) => document.getElementById('label-onrate').innerHTML = rate || ''} emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={10} initialRating={rate}></Rating>
                                     <span className="badge" id="label-onrate"></span>
                                 </a>
-                                <input type="text" className="form-control mr-3" placeholder="Add comment"></input>
-                                <button className="btn btn-primary" type="button">Comment</button>
+                                <input ref={feedBackEle} type="text" className="form-control mr-3" placeholder="Add comment"></input>
+                                <button onClick={btnComment_Clicked} className="btn btn-primary" type="button">Comment</button>
                             </div>
                             <div className="coment-bottom bg-white p-2 px-4">
-                                <div className="commented-section mt-2">
+                                {store.reviews?
+                                <div>
+                                    {store.reviews.map(r=>(<div className="commented-section mt-2">
                                     <div className="d-flex flex-row align-items-center commented-user">
-                                        <img className="img-fluid img-responsive rounded-circle mr-2" src="https://i.imgur.com/qdiP4DB.jpg" width="38"></img>
-                                        <h5 className="mr-2">Corey oates</h5>
+                                        <img className="img-fluid img-responsive rounded-circle mr-2" src={r.userImage?"http://localhost:3001/uploads/profile/"+r.userImage:emptyUser} width="38"></img>
+                                        <h5 className="mr-2">{r.userFullName}</h5>
                                         <span className="dot mb-1"></span>
                                         <div>
-                                            <a className="btn" onClick={()=>btnRatingClicked()}><Rating  emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={2} initialRating={initialRating} readonly="true"></Rating></a>
+                                            <a className="btn" onClick={()=>btnRatingClicked()}><Rating  emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={2} initialRating={r.review_rating} readonly="true"></Rating></a>
                                         </div>
-                                        <span className="mb-1 ml-2">4 hours ago</span>
+                                        <span className="mb-1 ml-2">{getFormattedDateAllTime(r.timestamp)} hours ago</span>
                                     </div>
                                     <div className="comment-text-sm">
-                                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
+                                        <span>{r.review_feedback}</span>
                                     </div>
                                     <div className="reply-section">
                                         <div className="d-flex flex-row align-items-center voting-icons">
@@ -54,53 +123,12 @@ export default function Review(){
                                             <h6 className="ml-2 mt-1">Reply</h6>
                                         </div>
                                     </div>
+                                </div>))}
                                 </div>
-                                <div className="commented-section mt-2">
-                                    <div className="d-flex flex-row align-items-center commented-user">
-                                        <img className="img-fluid img-responsive rounded-circle mr-2" src="https://i.imgur.com/qdiP4DB.jpg" width="38"></img>
-                                        <h5 className="mr-2">Samoya Johns</h5>
-                                        <span className="dot mb-1"></span>
-                                        <div>
-                                            <a className="btn" onClick={()=>btnRatingClicked()}><Rating  emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={2} initialRating={initialRating} readonly="true"></Rating></a>
-                                        </div>
-                                        <span className="mb-1 ml-2">5 hours ago</span>
-                                    </div>
-                                    <div className="comment-text-sm">
-                                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..</span>
-                                    </div>
-                                    <div className="reply-section">
-                                        <div className="d-flex flex-row align-items-center voting-icons">
-                                            <i className="fa fa-sort-up fa-2x mt-3 hit-voting"></i>
-                                            <i className="fa fa-sort-down fa-2x mb-3 hit-voting"></i>
-                                            <span className="ml-2">15</span>
-                                            <span className="dot ml-2"></span>
-                                            <h6 className="ml-2 mt-1">Reply</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="commented-section mt-2">
-                                    <div className="d-flex flex-row align-items-center commented-user">
-                                        <img className="img-fluid img-responsive rounded-circle mr-2" src="https://i.imgur.com/qdiP4DB.jpg" width="38"></img>
-                                        <h5 className="mr-2">Makhaya andrew</h5>
-                                        <span className="dot mb-1"></span>
-                                        <div>
-                                            <a className="btn" onClick={()=>btnRatingClicked()}><Rating  emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={2} initialRating={initialRating} readonly="true"></Rating></a>
-                                        </div>
-                                        <span className="mb-1 ml-2">10 hours ago</span>
-                                    </div>
-                                    <div className="comment-text-sm">
-                                        <span>Nunc sed id semper risus in hendrerit gravida rutrum. Non odio euismod lacinia at quis risus sed. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Enim facilisis gravida neque convallis a. In mollis nunc sed id. Adipiscing elit pellentesque habitant morbi tristique senectus et netus. Ultrices mi tempus imperdiet nulla malesuada pellentesque.</span>
-                                    </div>
-                                    <div className="reply-section">
-                                        <div className="d-flex flex-row align-items-center voting-icons">
-                                            <i className="fa fa-sort-up fa-2x mt-3 hit-voting"></i>
-                                            <i className="fa fa-sort-down fa-2x mb-3 hit-voting"></i>
-                                            <span className="ml-2">25</span>
-                                            <span className="dot ml-2"></span>
-                                            <h6 className="ml-2 mt-1">Reply</h6>
-                                        </div>
-                                    </div>
-                                </div>
+                                :"Course hadn't have any comments! Register course and leave for us some comments ane#@!"
+                                }
+                                
+                                
                             </div>
                             
                         </div>
