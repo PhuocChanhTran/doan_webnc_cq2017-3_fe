@@ -132,12 +132,12 @@ export default function LecturerDashBoard(){
     {
       name: 'Link',
       button: true,
-      cell: row => <a href="/" target="_blank" rel="noopener noreferrer"><Link to={"/course/"+row.course_id}>View</Link></a>,
+      cell: row => <a href="/" target="_blank" rel="noopener noreferrer"><Link to={"/courses/"+row.course_id}>View</Link></a>,
     },
     {
       name: 'Edit Button',
       button: true,
-      cell: row =>  <button type="button"><Link to={"/mycourse/"+row.course_id}>Edit</Link></button>,
+      cell: row =>  <button type="button"><Link to={"/mycourses/"+row.course_id}>Edit</Link></button>,
     },
   ];
   const customStyles = {
