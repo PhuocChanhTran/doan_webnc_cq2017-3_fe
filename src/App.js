@@ -38,24 +38,12 @@ function App() {
               <Home></Home>
           </HomeRoute> */}
           <HomeRoute exact path='/' >
-          <div className="App">
-                <div>
-                  <div id="preloder">
-                    <div className="loader" />
-                  </div>
+          
                   <Home></Home>
-                </div>    
-              </div> 
           </HomeRoute>
           <HomeRoute exact path='/courses/category/web-courses' >
-              <div className="App">
-                <div>
-                  <div id="preloder">
-                    <div className="loader" />
-                  </div>
+              
                   <WebCourse></WebCourse>
-                </div>    
-              </div>    
           </HomeRoute>
           <HomeRoute exact path='/courses/:courseId' >
               <Course></Course>
