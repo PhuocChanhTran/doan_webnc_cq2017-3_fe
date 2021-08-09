@@ -515,12 +515,10 @@ ol {
     flex-wrap: wrap;
 	padding-bottom: 30px;
 }
-
-.course-item .course-thumb {
-	height: 270px;
+.course-item .course-image {
+	height: 170px;
 }
-
-.course-item .course-thumb .price {
+.course-item .course-image .price {
 	font-size: 14px;
 	color: #fff;
 	font-weight: 600;
@@ -528,6 +526,35 @@ ol {
 	display: inline-block;
 	padding: 13px 19px;
 	margin: 14px;
+}
+.course-item .course-image .add {
+	font-size: 14px;
+	font-weight: 600;
+	padding-bottom: 0px;
+}
+.course-item.featured-course:nth-child(2n) .course-image {
+	left: auto;
+	right: 0;
+}
+
+.course-item.featured-course .course-image {
+	position: absolute;
+	width: 50%;
+	height: 100%;
+	left: 0;
+	top: 0;
+}
+.course-item .course-thumb {
+	height: 270px;
+}
+
+
+.course-item .course-thumb .price {
+	font-size: 14px;
+	color: #fff;
+	font-weight: 600;
+	background: #d82a4e;
+	display: inline-block;
 }
 
 .course-item .course-info {
