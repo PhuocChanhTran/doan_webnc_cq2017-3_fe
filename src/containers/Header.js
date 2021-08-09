@@ -1,5 +1,5 @@
 import React from "react";
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 import {Button, Form, FormControl,Nav, Navbar,NavDropdown} from 'react-bootstrap';
 import "../App.css";
 
@@ -39,9 +39,9 @@ export default function Header(props) {
             <div className="col-sm">
               <div className="site-logo">
                 {/* <img src="img/logo.png" alt /> */}
-                <a href="/">
+                <Link to="/"><a >
                 <img src="http://localhost:3000/img/logo.png" alt />
-                </a>
+                </a></Link>
               </div>
               <div className="nav-switch">
                 <i className="fa fa-bars" />
@@ -61,19 +61,19 @@ export default function Header(props) {
             <div className="col-sm navbar-custom">  
               <Nav className="">
                 <NavDropdown title="IT" id="basic-nav-dropdown">
-                  <NavDropdown.Item href="/courses/category/web-courses">Web course</NavDropdown.Item>
-                  <NavDropdown.Item href="/courses/category/mobile-courses">Mobile course</NavDropdown.Item>                
+                  <NavDropdown.Item><Link to="/courses/category/web-courses">Web courses</Link></NavDropdown.Item>
+                  <NavDropdown.Item><Link to="/courses/category/mobile-courses">Mobile courses</Link></NavDropdown.Item>                
                 </NavDropdown>
                 {localStorage.userEmail ? (
                   <>
-                    <Nav.Link href="/cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart</Nav.Link>
-                    <Nav.Link href="/wishlist"><i class="fa fa-heart" aria-hidden="true"></i> Wishlist</Nav.Link>
+                    <Nav.Link><Link to="/cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart</Link></Nav.Link>
+                    <Nav.Link><Link to="/wishlist"><i class="fa fa-heart" aria-hidden="true"></i> Wishlist</Link></Nav.Link>
                     <NavDropdown title={<i class="fa fa-user"></i>} id="basic-nav-dropdown">
-                      <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                      <NavDropdown.Item><Link to="/profile">Profile</Link></NavDropdown.Item>
                       {localStorage.userRole === "lecturer"?
-                        <NavDropdown.Item href="/mycourses">My course</NavDropdown.Item>
+                        <NavDropdown.Item><Link to="/mycourses">My course</Link></NavDropdown.Item>
                         :
-                        <NavDropdown.Item href="/mysubcribecourses">My subcribe course</NavDropdown.Item>
+                        <NavDropdown.Item ><Link to="/mysubcribecourses">My subcribe course</Link></NavDropdown.Item>
                       }
                       <NavDropdown.Item onClick={signOutBtn_Clicked}>Logout</NavDropdown.Item>                
                     </NavDropdown>

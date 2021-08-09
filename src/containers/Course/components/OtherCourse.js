@@ -63,7 +63,7 @@ export default function OtherCourse(){
                                 </a>
                             </div>
                             <div className="mix col-lg-3 col-md-4 col-sm-6 finance">
-                                <a href="#" class="hvr-shrink">
+                                <a href="/courses/22" class="hvr-shrink">
                                     <div className="course-item">
                                         <div
                                             className="course-image set-bg"
