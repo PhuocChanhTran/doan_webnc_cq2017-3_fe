@@ -57,16 +57,16 @@ function App() {
                 </div>    
               </div>    
           </HomeRoute>
-          <HomeRoute exact path='/course/:courseId' >
+          <HomeRoute exact path='/courses/:courseId' >
               <Course></Course>
           </HomeRoute>
           <UserRoute exact path='/profile' >
               <Profile></Profile>
           </UserRoute>
-          <LecturerRoute exact path='/mycourse' >
+          <LecturerRoute exact path='/mycourses' >
               <LecturerDashBoard></LecturerDashBoard>
           </LecturerRoute>
-          <LecturerRoute exact path='/mycourse/:courseId' >
+          <LecturerRoute exact path='/mycourses/:courseId' >
               <CourseEditing></CourseEditing>
           </LecturerRoute>
           <HomeRoute path="/not-found" ><NotFound></NotFound></HomeRoute>

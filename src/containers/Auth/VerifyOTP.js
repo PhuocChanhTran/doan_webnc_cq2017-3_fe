@@ -67,7 +67,7 @@ function Verify(){
         history.push('/login');
     }
     return (
-        <div className="main-content">
+        <div className="login-page-content">
             <div className="login-content-page main-conten-text">
                 <div className="container">
                     <div className="row">

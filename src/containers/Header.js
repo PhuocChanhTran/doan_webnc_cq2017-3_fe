@@ -1,6 +1,6 @@
 import React from "react";
 import {useHistory} from 'react-router-dom';
-
+import {Button, Form, FormControl,Nav, Navbar,NavDropdown} from 'react-bootstrap';
 import "../App.css";
 
 export default function Header(props) {
@@ -13,81 +13,81 @@ export default function Header(props) {
     }
   return (
     <div>
-      <header className="header-section">
+      <div className=" set-bg top-container" data-setbg="http://localhost:3000/img/page-bg/1.jpg">
+				<nav class="secondary-menu">
+					<div>
+						<div class="sm-left">
+							<strong><i class="fa fa-phone"></i></strong> <a href="#">+8412345678433</a>&nbsp;&nbsp;&nbsp;&nbsp;
+							<strong><i class="fa fa-envelope"></i></strong> <a href="#">webnccq2017bct@gmail.com</a>
+						</div>
+						<div class="sm-right">
+							<div class="sm-social-link">
+								<a class="h-facebook" href="#"><i class="fa fa-facebook"></i></a>
+								<a class="h-twitter" href="#"><i class="fa fa-twitter"></i></a>
+								<a class="h-google" href="#"><i class="fa fa-google-plus"></i></a>
+								<a class="h-linkedin" href="#"><i class="fa fa-linkedin"></i></a>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</nav>
+      </div>
+      <header className="header-section header" id="myHeader">
+       
         <div className="container">
           <div className="row">
-            <div className="col-lg-3 col-md-3">
+            <div className="col-sm">
               <div className="site-logo">
                 {/* <img src="img/logo.png" alt /> */}
+                <a href="/">
                 <img src="http://localhost:3000/img/logo.png" alt />
+                </a>
               </div>
               <div className="nav-switch">
                 <i className="fa fa-bars" />
               </div>
             </div>
-            <div className="col-lg-9 col-md-9">
-              <a href className="site-btn header-btn">
-                Login
-              </a>
-              <div>
+            <div className="col-sm">
+              <Form className="d-flex search-form">
+                <FormControl
+                  type="search"
+                  placeholder="Course Name"
+                  className="mr-2"
+                  aria-label="Search"
+                />
+                <Button variant="outline-primary">Search</Button>
+              </Form>
+            </div>
+            <div className="col-sm navbar-custom">  
+              <Nav className="">
+                <NavDropdown title="IT" id="basic-nav-dropdown">
+                  <NavDropdown.Item href="/courses/category/web-courses">Web course</NavDropdown.Item>
+                  <NavDropdown.Item href="/courses/category/mobile-courses">Mobile course</NavDropdown.Item>                
+                </NavDropdown>
                 {localStorage.userEmail ? (
-                  <span>
-                    username: {localStorage.userEmail}
-                    <button onClick={() => signOutBtn_Clicked()}>
-                      Signout
-                    </button>
-                  </span>
+                  <>
+                    <Nav.Link href="/cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart</Nav.Link>
+                    <Nav.Link href="/wishlist"><i class="fa fa-heart" aria-hidden="true"></i> Wishlist</Nav.Link>
+                    <NavDropdown title={<i class="fa fa-user"></i>} id="basic-nav-dropdown">
+                      <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                      {localStorage.userRole === "lecturer"?
+                        <NavDropdown.Item href="/mycourses">My course</NavDropdown.Item>
+                        :
+                        <NavDropdown.Item href="/mysubcribecourses">My subcribe course</NavDropdown.Item>
+                      }
+                      <NavDropdown.Item onClick={signOutBtn_Clicked}>Logout</NavDropdown.Item>                
+                    </NavDropdown>
+                  </>
                 ) : (
-                  <span></span>
+                  <Nav.Link href="/login">Login</Nav.Link>
                 )}
-              </div>
 
-              <nav className="main-menu">
-                <ul>
-                  <li>
-                    <a href="index.html">Home</a>
-                  </li>
-                  <li>
-                    <a href="#">About us</a>
-                  </li>
-                  <li>
-                    <a href="courses.html">Courses</a>
-                  </li>
-                  <li>
-                    <a href="blog.html">News</a>
-                  </li>
-                  <li>
-                    <a href="contact.html">Contact</a>
-                  </li>
-                </ul>
-              </nav>
+              </Nav>
             </div>
           </div>
         </div>
       </header>
-      {/* <div className="page-info-section set-bg" data-setbg="img/page-bg/1.jpg"> */}
-      <div className="page-info-section set-bg" data-setbg="http://localhost:3000/img/page-bg/1.jpg">nv 
-      </div>
-      <section className="search-section ss-other-page">
-        <div className="container">
-          <div className="search-warp">
-            <div className="section-title text-white">
-              <h2>
-                <span>Search your course</span>
-              </h2>
-            </div>
-            <div className="row">
-              <div className="col-lg-10 offset-lg-1">
-                {/* search form */}
-                <form className="course-search-form text-left">
-                  <input type="text" placeholder="Course" />
-                  <button className="site-btn btn-dark">Search Couse</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      
     </div>
   );
 }

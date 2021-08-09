@@ -54,7 +54,11 @@ export function VerifyRoute({ children, ...rest }) {
         {...rest}
         render={() =>
           localStorage.usernameVerify ? (
-            children
+            <>  
+              <Header></Header>
+              {children}
+              <Footer></Footer>
+            </>
           ) : (
             <Redirect
               to={{

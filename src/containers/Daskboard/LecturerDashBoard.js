@@ -117,7 +117,7 @@ export default function LecturerDashBoard(){
     {
       name: 'Saleoff',
       grow: 0,
-      cell: row => <div>{row.saleoff}</div>,
+      cell: row => <div>{row.saleoff*100}%</div>,
     },
     {
       name: 'Image',
@@ -161,9 +161,6 @@ export default function LecturerDashBoard(){
         },
       },
   };
-  const handleTest = () =>{
-    console.log(store);
-  }
   const handleSaveChange =async () =>{
     console.log(newCourse);
     console.log(store)
@@ -197,7 +194,6 @@ export default function LecturerDashBoard(){
                   
                   <span className="d-block d-sm-flex align-items-center d-flex justify-content-between">
                     <h2 className="course-card-title">My courses </h2>
-                    <Button variant="success"  onClick={handleTest}>test</Button>
 
                     <Button variant="success"  onClick={handleShow}>Add Course</Button>
                   </span>

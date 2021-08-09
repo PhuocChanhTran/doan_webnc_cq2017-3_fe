@@ -257,11 +257,12 @@ ol {
 ---------------------*/
 
 .header-section {
-	position: absolute;
+	position: relative;
 	width: 100%;
-	top: 0;
 	left: 0;
 	padding-top: 60px;
+	padding-bottom: 0px;
+
 }
 
 .site-logo {
@@ -461,6 +462,43 @@ ol {
 	border-bottom: none;
 }
 
+/* secondary menu */
+
+.secondary-menu {
+	width: 100%;
+	background: rgba(0,0,0,0.9);
+}
+.secondary-menu .sm-left {
+	float: left;
+	text-align: left;
+}
+
+.secondary-menu .sm-left a {
+	color: #ccc;
+}
+
+.secondary-menu .sm-right {
+	float: right;
+	text-align: right;
+}
+
+.secondary-menu .sm-left,
+.secondary-menu .sm-right {
+	line-height: 40px;
+	color: #fff;
+}
+
+.secondary-menu .sm-social-link a {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 14px;
+	color: #fff;
+	text-align: center;
+	background: rgba(0,0,0,0.3);
+}
+
 /*------------------
   Course section
 ---------------------*/
@@ -472,7 +510,10 @@ ol {
 }
 
 .course-item {
-	margin-bottom: 30px;
+    /* margin-bottom: 30px; */
+    height: 100%;
+    flex-wrap: wrap;
+	padding-bottom: 30px;
 }
 
 .course-item .course-thumb {
@@ -490,11 +531,19 @@ ol {
 }
 
 .course-item .course-info {
-	background: #edf4f6;
+    background: #edf4f6;
+    height: calc(100% - 270px);
+    /* flex-direction: row; */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: space-between;
+    justify-content: center;
 }
 
 .course-item .course-info .course-text {
-	padding: 45px 33px 25px;
+    width: 100%;
+    padding: 45px 33px 25px;
 }
 
 .course-item .course-info .course-text h5 {
@@ -842,9 +891,7 @@ ol {
 ---------------------
 =======================*/
 
-.page-info-section {
-	height: 443px;
-}
+
 
 .site-breadcrumb {
 	padding-top: 215px;
