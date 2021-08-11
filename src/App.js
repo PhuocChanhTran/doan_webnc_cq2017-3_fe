@@ -18,13 +18,16 @@ import LecturerDashBoard from './containers/Daskboard/LecturerDashBoard';
 import CourseEditing from './containers/CourseEditing/CourseEditing';
 import WebCourse  from './containers/WebCourse/WebCourse';
 import MobileCourse  from './containers/MobileCourse/MobileCourse';
+import Checkout from "./containers/Checkout/Checkout";
 
 import 'react-quill/dist/quill.snow.css';
+import AppProvider from './contexts/AppProvider';
 function App() {
   return (
     <>
 
       <Router>
+        <AppProvider>
         <Switch>
           <LoginRoute exact path='/register' >
               <Register></Register>
@@ -53,6 +56,9 @@ function App() {
           <HomeRoute exact path='/courses/:courseId' >
               <Course></Course>
           </HomeRoute>
+          <HomeRoute exact path="/checkout">
+              <Checkout />
+            </HomeRoute>
           <UserRoute exact path='/profile' >
               <Profile></Profile>
           </UserRoute>
@@ -77,6 +83,7 @@ function App() {
           <SRoute path="/add-book" exact component={AddBook}></SRoute>
           <Redirect to="/not-found"></Redirect> */}
           </Switch>
+          </AppProvider>
       </Router>
     </>
   );
