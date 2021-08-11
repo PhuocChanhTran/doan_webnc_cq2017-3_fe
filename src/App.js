@@ -16,7 +16,6 @@ import Register from "./containers/Auth/Register";
 import Login from "./containers/Auth/Login";
 import Verify from "./containers/Auth/VerifyOTP";
 
-<<<<<<< HEAD
 import Home from "./containers/Home/Home";
 import Course from "./containers/Course/Course";
 import NotFound from "./containers/NotFound";
@@ -24,15 +23,6 @@ import Profile from "./containers/Profile/Profile";
 import LecturerDashBoard from "./containers/Daskboard/LecturerDashBoard";
 import CourseEditing from "./containers/CourseEditing/CourseEditing";
 import WebCourse from "./containers/WebCourse/WebCourse";
-=======
-import Home from './containers/Home/Home'
-import Course from './containers/Course/Course'
-import NotFound from './containers/NotFound';
-import Profile from './containers/Profile/Profile';
-import LecturerDashBoard from './containers/Daskboard/LecturerDashBoard';
-import CourseEditing from './containers/CourseEditing/CourseEditing';
-import WebCourse  from './containers/WebCourse/WebCourse'
->>>>>>> parent of f18fda6 (Create mobile course page)
 
 import "react-quill/dist/quill.snow.css";
 import Checkout from "./containers/Checkout/Checkout";
@@ -57,7 +47,6 @@ function App() {
             {/* <HomeRoute exact path='/' >
               <Home></Home>
           </HomeRoute> */}
-<<<<<<< HEAD
             <HomeRoute exact path="/">
               <Home></Home>
             </HomeRoute>
@@ -77,17 +66,6 @@ function App() {
               <WebCourse></WebCourse>
             </HomeRoute>
             <HomeRoute exact path="/courses/:courseId">
-=======
-          <HomeRoute exact path='/' >
-          
-                  <Home></Home>
-          </HomeRoute>
-          <HomeRoute exact path='/courses/category/web-courses' >
-              
-                  <WebCourse></WebCourse>
-          </HomeRoute>
-          <HomeRoute exact path='/courses/:courseId' >
->>>>>>> parent of f18fda6 (Create mobile course page)
               <Course></Course>
             </HomeRoute>
             <UserRoute exact path="/profile">
