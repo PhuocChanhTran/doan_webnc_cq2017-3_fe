@@ -1,9 +1,6 @@
-import {
-    Route,
-    Redirect
-} from 'react-router-dom';
-import Header from '../containers/Header';
-import Footer from '../containers/Footer';
+import { Route, Redirect } from "react-router-dom";
+import Header from "../containers/Header";
+import Footer from "../containers/Footer";
 
 export function LoginRoute({ children, ...rest }) {
   return (
@@ -12,64 +9,58 @@ export function LoginRoute({ children, ...rest }) {
       render={() =>
         !localStorage.accessToken ? (
           <>
-        
             <Header></Header>
             {children}
             <Footer></Footer>
           </>
-        ):
-        (
+        ) : (
           <Redirect
             to={{
-              pathname: '/',
+              pathname: "/",
               // state: { from: location }
             }}
           />
         )
       }
     ></Route>
-    
   );
 }
 export function HomeRoute({ children, ...rest }) {
   return (
     <Route
       {...rest}
+      render={() => (
+        <>
+          <Header></Header>
+          {children}
+          <Footer></Footer>
+        </>
+      )}
+    ></Route>
+  );
+}
+export function VerifyRoute({ children, ...rest }) {
+  return (
+    <Route
+      {...rest}
       render={() =>
-
+        localStorage.usernameVerify ? (
           <>
-        
             <Header></Header>
             {children}
             <Footer></Footer>
           </>
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              // state: { from: location }
+            }}
+          />
+        )
       }
-    ></Route>
-    
+    />
   );
-}
-export function VerifyRoute({ children, ...rest }) {
-    return (
-      <Route
-        {...rest}
-        render={() =>
-          localStorage.usernameVerify ? (
-            <>  
-              <Header></Header>
-              {children}
-              <Footer></Footer>
-            </>
-          ) : (
-            <Redirect
-              to={{
-                pathname: '/login',
-                // state: { from: location }
-              }}
-            />
-          )
-        }
-      />
-    );
 }
 export function UserRoute({ children, ...rest }) {
   return (
@@ -85,7 +76,7 @@ export function UserRoute({ children, ...rest }) {
         ) : (
           <Redirect
             to={{
-              pathname: '/login',
+              pathname: "/login",
               // state: { from: location }
             }}
           />
@@ -99,7 +90,7 @@ export function LecturerRoute({ children, ...rest }) {
     <Route
       {...rest}
       render={() =>
-        localStorage.accessToken && localStorage.userRole ==="lecturer" ? (
+        localStorage.accessToken && localStorage.userRole === "lecturer" ? (
           <>
             <Header></Header>
             {children}
@@ -108,7 +99,7 @@ export function LecturerRoute({ children, ...rest }) {
         ) : (
           <Redirect
             to={{
-              pathname: '/login',
+              pathname: "/login",
               // state: { from: location }
             }}
           />
@@ -141,7 +132,7 @@ export function LecturerRoute({ children, ...rest }) {
 //       </>
 //     );
 // };
-  
+
 // export const PublicRoute = ({ component: Component, ...rest }) => {
 //     return (
 //       <Route
@@ -159,7 +150,7 @@ export function LecturerRoute({ children, ...rest }) {
 //       ></Route>
 //     );
 // };
-  
+
 // export const LoginRoute = ({ component: Component, ...rest }) => {
 //     const token = JSON.parse(localStorage.getItem("token"));
 //     return (
@@ -184,4 +175,3 @@ export function LecturerRoute({ children, ...rest }) {
 //       </>
 //     );
 // };
-  

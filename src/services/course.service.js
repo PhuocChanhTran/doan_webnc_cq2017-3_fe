@@ -123,6 +123,3 @@ export function postRatingAndFeedBack(feedback,rating, courseId){
 export function getWebCourse(){
   return axios.get(`/courses/category/web-courses`);
 }
-export function getMobileCourse(){
-  return axios.get(`/courses/category/mobile-courses`);
-}
