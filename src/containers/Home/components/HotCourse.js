@@ -8,7 +8,7 @@ export default function HotCourse() {
         <h2 className="mb-1 text-left">HOT COURSES</h2>
       </div>
       <div className="row course-items-area">
-        {store.hotCourse.map((item) => (
+      {store.hotCourse.map((item) => (
           <div className="mix col-lg-3 col-md-4 col-sm-6 finance">
             <div className="course-item">
               <div
