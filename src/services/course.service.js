@@ -126,3 +126,7 @@ export function getWebCourse(){
 export function getMobileCourse(){
   return axios.get(`/courses/category/mobile-courses`);
 }
+export function getSearchResult(course){
+  // return axios.get(`courses/query?search=${course}&page=${page}`);
+  return axios.get(`courses/query?search=${course}`);
+}
