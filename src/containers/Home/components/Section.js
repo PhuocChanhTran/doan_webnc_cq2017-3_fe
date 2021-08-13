@@ -11,10 +11,10 @@ export default function Section() {
               ALL
             </li>
             <li className="control" data-filter="/*  */.finance">
-              MOBILE COURSE
+              POPULAR COURSES
             </li>
             <li className="control" data-filter=".design">
-              WEB COURSE
+              HOT COURSES
             </li>
           </ul>
         </div>

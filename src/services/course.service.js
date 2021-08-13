@@ -130,3 +130,7 @@ export function getSearchResult(course){
   // return axios.get(`courses/query?search=${course}&page=${page}`);
   return axios.get(`courses/query?search=${course}`);
 }
+
+export function getMySubscribeCourse(){
+  return axios.get(`/subcribers/me/`);
+}
