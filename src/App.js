@@ -16,22 +16,26 @@ import Register from "./containers/Auth/Register";
 import Login from "./containers/Auth/Login";
 import Verify from "./containers/Auth/VerifyOTP";
 
-import Home from "./containers/Home/Home";
-import Course from "./containers/Course/Course";
-import NotFound from "./containers/NotFound";
-import Profile from "./containers/Profile/Profile";
-import LecturerDashBoard from "./containers/Daskboard/LecturerDashBoard";
-import CourseEditing from "./containers/CourseEditing/CourseEditing";
-import WebCourse from "./containers/WebCourse/WebCourse";
-import MobileCourse from "./containers/MobileCourse/MobileCourse";
+
+import Home from './containers/Home/Home'
+import Course from './containers/Course/Course'
+import NotFound from './containers/NotFound';
+import Profile from './containers/Profile/Profile';
+import LecturerDashBoard from './containers/Daskboard/LecturerDashBoard';
+import CourseEditing from './containers/CourseEditing/CourseEditing';
+import WebCourse  from './containers/WebCourse/WebCourse';
+import MobileCourse  from './containers/MobileCourse/MobileCourse';
+import Checkout from "./containers/Checkout/Checkout";
 import SearchResult from "./containers/SearchResult/SearchResult";
 
+import 'react-quill/dist/quill.snow.css';
+import AppProvider from './contexts/AppProvider';
 
-import "react-quill/dist/quill.snow.css";
 function App() {
   return (
     <>
       <Router>
+        <AppProvider>
         <Switch>
           <LoginRoute exact path="/register">
             <Register></Register>
@@ -57,12 +61,15 @@ function App() {
           <HomeRoute exact path="/courses/search">
             <SearchResult></SearchResult>
           </HomeRoute>
+
+          <HomeRoute exact path="/checkout">
+              <Checkout />
+            </HomeRoute>
+          <UserRoute exact path='/profile' >
+              <Profile></Profile>
           <HomeRoute exact path="/courses/:courseId">
             <Course></Course>
           </HomeRoute>
-          <UserRoute exact path="/profile">
-            <Profile></Profile>
-          </UserRoute>
           <LecturerRoute exact path="/mycourses">
             <LecturerDashBoard></LecturerDashBoard>
           </LecturerRoute>
@@ -85,7 +92,8 @@ function App() {
           <SRoute path="/my-shop" exact component={Myshop}></SRoute>
           <SRoute path="/add-book" exact component={AddBook}></SRoute>
           <Redirect to="/not-found"></Redirect> */}
-        </Switch>
+          </Switch>
+          </AppProvider>
       </Router>
     </>
   );

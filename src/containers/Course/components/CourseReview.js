@@ -91,12 +91,12 @@ export default function Review(){
                         <div className="d-flex flex-column col-md-8">
                             <div className="d-flex flex-row add-comment-section mt-4 mb-4">
                                 <img className="img-fluid img-responsive rounded-circle mr-2" src={store.user.image?"http://localhost:3001/uploads/profile/"+store.user.image:emptyUser} width="38"></img>
-                                <a className="btn"   >
+                                <a className="btn badge-rating"   >
                                     <Rating onClick={(rate)=>btnRatingClicked(rate)} onHover={(rate) => document.getElementById('label-onrate').innerHTML = rate || ''} emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={10} initialRating={rate}></Rating>
                                     <span className="badge" id="label-onrate"></span>
                                 </a>
                                 <input ref={feedBackEle} type="text" className="form-control mr-3" placeholder="Add comment"></input>
-                                <button onClick={btnComment_Clicked} className="btn btn-primary" type="button">Comment</button>
+                                <button onClick={btnComment_Clicked} className="btn btn-primary" style={{width:"200px"}} type="button">Comment</button>
                             </div>
                             <div className="coment-bottom bg-white p-2 px-4">
                                 {store.reviews?
