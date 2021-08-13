@@ -8,6 +8,9 @@ import {
   Navbar,
   NavDropdown,
 } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+
+
 import "../App.css";
 import FrameCart from "./Cart/FrameCart";
 import FrameWatch from "./WatchList/FrameWatch";
@@ -20,6 +23,16 @@ export default function Header(props) {
     delete localStorage.refreshToken;
     history.push("/");
   };
+
+  const [searchKey, setsearchKey] = useState("");
+  const handleSearchKeyChanged = function (e) {
+    setsearchKey(e.target.value);
+  };
+  const handleButton_click = function () {
+    history.push(`/courses/search?course=${searchKey}`);
+  };
+
+
   return (
     <div>
       <div
@@ -81,8 +94,11 @@ export default function Header(props) {
                   placeholder="Course Name"
                   className="mr-2"
                   aria-label="Search"
+                  onChange={handleSearchKeyChanged}
                 />
-                <Button variant="outline-primary">Search</Button>
+                <Button variant="outline-primary" onClick={handleButton_click}>
+                  Search
+                </Button>
               </Form>
             </div>
             <div className="col-sm navbar-custom">
@@ -101,12 +117,14 @@ export default function Header(props) {
                       to="/courses/category/mobile-courses"
                       style={{ color: "#000" }}
                     >
+
                       Mobile courses
                     </Link>
                   </NavDropdown.Item>
                 </NavDropdown>
                 {localStorage.userEmail ? (
                   <>
+
                     <Nav.Link className="cart-nav">
                       <Link to="#">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>{" "}
@@ -124,6 +142,7 @@ export default function Header(props) {
                       <Link to="/checkout">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>{" "}
                         Checkout
+
                       </Link>
                     </Nav.Link>
                     <NavDropdown
@@ -131,6 +150,7 @@ export default function Header(props) {
                       id="basic-nav-dropdown"
                     >
                       <NavDropdown.Item>
+
                         <Link to="/profile" style={{ color: "#000" }}>
                           Profile
                         </Link>
@@ -147,6 +167,7 @@ export default function Header(props) {
                             to="/mysubcribecourses"
                             style={{ color: "#000" }}
                           >
+
                             My subcribe course
                           </Link>
                         </NavDropdown.Item>
