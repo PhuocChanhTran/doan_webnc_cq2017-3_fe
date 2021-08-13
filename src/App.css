@@ -420,3 +420,7 @@ body {
 .heart_hv:hover{
   width: 25px;
 }
+
+.badge-rating{
+  padding-right: 50px;
+}

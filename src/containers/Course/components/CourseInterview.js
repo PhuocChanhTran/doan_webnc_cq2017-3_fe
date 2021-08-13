@@ -73,6 +73,7 @@ export default function CourseInterview() {
           </span>
         </div>
         <div>
+          <h5 style={{paddingBottom:"10px",paddingTop:"10px"}}>Price: {parseInt(store.course.price*(1-store.course.saleoff))}VND <del class="badge badge-secondary">{store.course.price} VND</del> <span class="badge badge-warning">{store.course.saleoff*100}% off</span></h5>
           <Button variant="primary" onClick={() => btnAddCart()}>
             Add to cart
           </Button>{" "}
