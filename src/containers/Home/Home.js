@@ -5,7 +5,7 @@ import "../../App.css";
 import homeReducer from "./homeReducer";
 import homeContext from "./homeContext";
 
-import { getAllCourse } from "../../services/course.service";
+import { getHotCourses, getNewCourses, getPopularCourses } from "../../services/course.service";
 
 import HotCourse from "./components/HotCourse";
 import PopularCourse from "./components/PopularCourse";
@@ -22,14 +22,13 @@ export default function Home() {
 
   useEffect(function () {
     async function loadHotCourse() {
-      const res = await getAllCourse();
-      console.log('kq');
-      console.log(res.data.result);
+      const res = await getHotCourses();
+      
       if (res.status === 200) {
         dispatch({
           type: "initHotCourse",
           payload: {
-            hotCourse: res.data.result,
+            hotCourse: res.data,
           },
         });
       }
@@ -43,12 +42,12 @@ export default function Home() {
       }
     }
     async function loadPopularCourse() {
-      const res = await getAllCourse();
+      const res = await getPopularCourses();
       if (res.status === 200) {
         dispatch({
           type: "initPopularCourse",
           payload: {
-            popularCourse: res.data.result,
+            popularCourse: res.data,
           },
         });
       }
@@ -62,12 +61,12 @@ export default function Home() {
       }
     }
     async function loadNewCourse() {
-      const res = await getAllCourse();
+      const res = await getNewCourses();
       if (res.status === 200) {
         dispatch({
           type: "initNewCourse",
           payload: {
-            newCourse: res.data.result,
+            newCourse: res.data,
           },
         });
       }
