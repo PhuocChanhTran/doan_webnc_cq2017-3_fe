@@ -2,7 +2,7 @@ import React, {useEffect, useReducer }  from 'react'
 import courseReducer from './courseReducer'
 import CourseContext from './courseContext'
 import { useParams } from 'react-router';
-import {getCourseSingleCourse,getReviewByCourseId} from '../../services/course.service'
+import {getCourseSingleCourse,getReviewByCourseId,getHotCourses} from '../../services/course.service'
 import {getLecturerInfo} from '../../services/user.service'
 
 import {Container, Row, Col, Card } from 'react-bootstrap';
@@ -21,7 +21,8 @@ function Course(){
         course:{},
         lecturer: {},
         reviews: [],
-        user:{}
+        user:{}, 
+        hotCourse: [],
     };
     const [store, dispatch] = useReducer(courseReducer, initialCourseState);
 
@@ -59,6 +60,27 @@ function Course(){
                 });
             }
         }
+        async function loadHotCourse() {
+            const res = await getHotCourses();
+            
+            if (res.status === 200) {
+              dispatch({
+                type: "initHotCourse",
+                payload: {
+                  hotCourse: res.data.length<=4?res.data:res.data.slice(0,4),
+                },
+              });
+            }
+            if (res.status === 204) {
+              dispatch({
+                type: "initHotCourse",
+                payload: {
+                  hotCourse: [],
+                },
+              });
+            }
+        }
+        loadHotCourse()
         loadSingleCourse();
     },[]);
     const btnRatingClicked = () =>{
