@@ -15,6 +15,19 @@ export function updateUserInfo(updatedInfo){
         organization: updatedInfo.organization
     })
 }
+export function updateUserPassword(updatedInfo){
+    return axios.patch('/users/update-password',{
+        oldPassword: updatedInfo.oldPassword,
+        newPassword: updatedInfo.newPassword,
+    })
+}
+
+export function updateUserEmail(updatedInfo){
+    return axios.patch('/users/update-email',{
+        newEmail: updatedInfo.newEmail,
+    })
+}
+
 export function updateUserImage(formdata){
     return axios.patch('/users/me/image',formdata)
 }

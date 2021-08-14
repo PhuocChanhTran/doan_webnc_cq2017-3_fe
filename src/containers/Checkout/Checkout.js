@@ -11,6 +11,8 @@ import paysafe from "./assets/images/paysafe-checkbox.png";
 import bitcoin from "./assets/images/bitcoin-checkbox.png";
 import { getCartList } from "../../services/cart.service";
 import CourseItem from "./components/CourseItem";
+import Modal from './Modal';
+
 
 function Checkout() {
   const [cartList, setCartList] = React.useState(null);
@@ -32,6 +34,7 @@ function Checkout() {
 
     return total;
   }, [cartList]);
+
   return (
     <main id="main-section" style={{ marginBottom: "3em" }}>
       <div className="main-conten content_page_checkout" id="content-layout">
@@ -307,12 +310,7 @@ function Checkout() {
                           </a>
                         </p>
                         <p className="btn-order-checkout text-center form-default-submit wow fadeInUp">
-                          <a
-                            className="color-white font-24 font-bold btn"
-                            href="#"
-                          >
-                            ORDER NOW
-                          </a>
+                          <Modal/>
                         </p>
                       </div>
                     </div>
@@ -326,5 +324,6 @@ function Checkout() {
     </main>
   );
 }
+
 
 export default Checkout;
