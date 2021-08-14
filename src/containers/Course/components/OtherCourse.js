@@ -1,9 +1,12 @@
-import React from   'react';
+import React, { useContext } from   'react';
 import {Card,Button,Row,Col} from 'react-bootstrap'
 import emptyCourse from '../../../assets/images/emptyCourse.jpg'
 import emptyUser from '../../../assets/images/emptyUser.png'
 import Rating from 'react-rating'
+import CourseContext from '../courseContext';
+import { Link } from 'react-router-dom';
 export default function OtherCourse(){
+    const {store}  = useContext(CourseContext);
     const btnAddToCart_Clicked = (e) =>{
         console.log("(e)=>btnAddToCart_Clicked(e)");
     }
@@ -17,186 +20,43 @@ export default function OtherCourse(){
                 <Card.Text>
                     <div>
                         <div className="row course-items-area">
-                            <div className="mix col-lg-3 col-md-4 col-sm-6 finance">
-                                <a href="#" class="hvr-shrink">
-                                    <div className="course-item">
-                                        <div
-                                            className="course-image set-bg"
-                                            data-setbg={emptyCourse}
+                            {store.hotCourse && store.hotCourse.length !== 0?store.hotCourse.map((item)=>(
+                            <div className="mix col-lg-3 col-md-4 col-sm-6 finance ">
+                                <Link to={`/courses/${item.course_id}`} class=" hvr-shrink course-item" >
+                                        <img
+                                            className="course-thumb set-bg"
+                                            src={item.course_image?`http://localhost:3001/uploads/images/${item.course_image}`:emptyCourse}
                                         >
-                                            <div className="price">
-                                            Price:{" "}
-                                            10000
-                                            &#65284;
-                                            </div>
-                                        </div>
+                                            
+                                        </img>
                                         <div className="course-info">
-                                            <h5>item.course_name</h5>
-                                            <p>item.course_shortdescription</p>
+                                            <div>
+                                                <h5>{item.course_name}</h5>
+                                                <p>{item.course_shortdescription}</p>
+                                            </div>
                                             <h6 >
-                                                5
-                                                <a className="btn" ><Rating  className = "course-rating" emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={10} initialRating={5} readonly="true"></Rating></a>
+                                                {item.course_rv_point.toFixed(1)}
+                                                <a className="btn" ><Rating  className = "course-rating" emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={10} initialRating={item.course_rv_point} readonly="true"></Rating></a>
                                                 <span>
-                                                    (1000 ratings)
+                                                    ({item.totalReviews} ratings)
                                                 </span>
                                             </h6>
+                                            <h6 style={{paddingBottom:"10px",paddingTop:"10px"}}>Price: {parseInt(item.price*(1-item.saleoff))}VND <del class="badge badge-secondary">{item.price} VND</del> <span class="badge badge-warning">{item.saleoff*100}% off</span></h6>
+
                                             {/* <div className="students">{item.Saleoff!==0? item.saleoff*100:''} </div> */}
-                                            <Row>
-                                                <Col>
-                                                    <a href="#" class="hvr-grow" onClick={(e)=>btnAddToCart_Clicked(e)}><i class="fa fa-cart-plus" aria-hidden="true">Cart</i></a>
-                                                </Col>
-                                                <Col>
-                                                    <a href="#" class="hvr-grow" onClick={(e)=>btnAddToWishList_Clicked(e)}><i class="fa fa-heart" aria-hidden="true">Wishlist</i></a>
-                                                </Col>
-                                            </Row>
                                             <div className="course-author">
-                                                <div
+                                                <img
                                                     className="ca-pic set-bg"
-                                                    data-setbg={emptyUser}
+                                                    src={item.lecturerImage?`http://localhost:3001/uploads/profile/${item.lecturerImage}`:emptyUser}
                                                 />
                                                 <p>
-                                                    William Parker, <span>Developer</span>
+                                                    {item.lecturerFullName},<span>Lecturer</span>
                                                 </p>
                                             </div>
                                         </div>
-                                        </div>
-                                </a>
+                                </Link>
                             </div>
-                            <div className="mix col-lg-3 col-md-4 col-sm-6 finance">
-                                <a href="/courses/22" class="hvr-shrink">
-                                    <div className="course-item">
-                                        <div
-                                            className="course-image set-bg"
-                                            data-setbg={emptyCourse}
-                                        >
-                                            <div className="price">
-                                            Price:{" "}
-                                            10000
-                                            &#65284;
-                                            </div>
-                                        </div>
-                                        <div className="course-info">
-                                            <h5>item.course_name</h5>
-                                            <p>item.course_shortdescription</p>
-                                            <h6 >
-                                                5
-                                                <a className="btn" ><Rating  className = "course-rating" emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={10} initialRating={5} readonly="true"></Rating></a>
-                                                <span>
-                                                    (1000 ratings)
-                                                </span>
-                                            </h6>
-                                            {/* <div className="students">{item.Saleoff!==0? item.saleoff*100:''} </div> */}
-                                            <Row>
-                                                <Col>
-                                                    <a href="#" class="hvr-grow" onClick={(e)=>btnAddToCart_Clicked(e)}><i class="fa fa-cart-plus" aria-hidden="true">Cart</i></a>
-                                                </Col>
-                                                <Col>
-                                                    <a href="#" class="hvr-grow" onClick={(e)=>btnAddToWishList_Clicked(e)}><i class="fa fa-heart" aria-hidden="true">Wishlist</i></a>
-                                                </Col>
-                                            </Row>
-                                            <div className="course-author">
-                                                <div
-                                                    className="ca-pic set-bg"
-                                                    data-setbg={emptyUser}
-                                                />
-                                                <p>
-                                                    William Parker, <span>Developer</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        </div>
-                                </a>
-                            </div>
-                            <div className="mix col-lg-3 col-md-4 col-sm-6 finance">
-                                <a href="#" class="hvr-shrink">
-                                    <div className="course-item">
-                                        <div
-                                            className="course-image set-bg"
-                                            data-setbg={emptyCourse}
-                                        >
-                                            <div className="price">
-                                            Price:{" "}
-                                            10000
-                                            &#65284;
-                                            </div>
-                                        </div>
-                                        <div className="course-info">
-                                            <h5>item.course_name</h5>
-                                            <p>item.course_shortdescription</p>
-                                            <h6 >
-                                                5
-                                                <a className="btn" ><Rating  className = "course-rating" emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={10} initialRating={5} readonly="true"></Rating></a>
-                                                <span>
-                                                    (1000 ratings)
-                                                </span>
-                                            </h6>
-                                            {/* <div className="students">{item.Saleoff!==0? item.saleoff*100:''} </div> */}
-                                            <Row>
-                                                <Col>
-                                                    <a href="#" class="hvr-grow" onClick={(e)=>btnAddToCart_Clicked(e)}><i class="fa fa-cart-plus" aria-hidden="true">Cart</i></a>
-                                                </Col>
-                                                <Col>
-                                                    <a href="#" class="hvr-grow" onClick={(e)=>btnAddToWishList_Clicked(e)}><i class="fa fa-heart" aria-hidden="true">Wishlist</i></a>
-                                                </Col>
-                                            </Row>
-                                            <div className="course-author">
-                                                <div
-                                                    className="ca-pic set-bg"
-                                                    data-setbg={emptyUser}
-                                                />
-                                                <p>
-                                                    William Parker, <span>Developer</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        </div>
-                                </a>
-                            </div>
-                            <div className="mix col-lg-3 col-md-4 col-sm-6 finance">
-                                <a href="#" class="hvr-shrink">
-                                    <div className="course-item">
-                                        <div
-                                            className="course-image set-bg"
-                                            data-setbg={emptyCourse}
-                                        >
-                                            <div className="price">
-                                            Price:{" "}
-                                            10000
-                                            &#65284;
-                                            </div>
-                                        </div>
-                                        <div className="course-info">
-                                            <h5>item.course_name</h5>
-                                            <p>item.course_shortdescription</p>
-                                            <h6 >
-                                                5
-                                                <a className="btn" ><Rating  className = "course-rating" emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={10} initialRating={5} readonly="true"></Rating></a>
-                                                <span>
-                                                    (1000 ratings)
-                                                </span>
-                                            </h6>
-                                            {/* <div className="students">{item.Saleoff!==0? item.saleoff*100:''} </div> */}
-                                            <Row>
-                                                <Col>
-                                                    <a href="#" class="hvr-grow" onClick={(e)=>btnAddToCart_Clicked(e)}><i class="fa fa-cart-plus" aria-hidden="true">Cart</i></a>
-                                                </Col>
-                                                <Col>
-                                                    <a href="#" class="hvr-grow" onClick={(e)=>btnAddToWishList_Clicked(e)}><i class="fa fa-heart" aria-hidden="true">Wishlist</i></a>
-                                                </Col>
-                                            </Row>
-                                            <div className="course-author">
-                                                <div
-                                                    className="ca-pic set-bg"
-                                                    data-setbg={emptyUser}
-                                                />
-                                                <p>
-                                                    William Parker, <span>Developer</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        </div>
-                                </a>
-                            </div>
+                            )):""}
                             
                         </div>
                     </div>

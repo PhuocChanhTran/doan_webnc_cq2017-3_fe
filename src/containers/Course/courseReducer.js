@@ -26,6 +26,11 @@ export default function courseReducer(state, action) {
           ...state,
           reviews: [...state.reviews,action.payload.newReview]
         }
+      case 'initHotCourse':
+        return {
+          ...state,
+          hotCourse: action.payload.hotCourse,
+        }
       default:
         return state;
     }
