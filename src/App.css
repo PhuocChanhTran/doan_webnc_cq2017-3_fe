@@ -424,3 +424,28 @@ body {
 .badge-rating{
   padding-right: 50px;
 }
+
+
+.course-item-frame {
+  position: relative;
+}
+
+.course-item-frame .frame {
+  display: none;
+  position: absolute;
+  border: 1px solid #000;
+  box-shadow: 20px 10px 10px #888888;
+  top: 50%;
+  right: 100%;
+
+}
+
+.course-item-frame:hover .frame {
+  display: block;
+}
+
+
+.course-item-addcart-row{
+  z-index: 3;
+  pointer-events: stroke;
+}
