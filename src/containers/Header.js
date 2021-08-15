@@ -150,7 +150,11 @@ export default function Header(props) {
                       id="basic-nav-dropdown"
                     >
                       <NavDropdown.Item>
-
+                      <Link to="/settings" style={{ color: "#000" }}>
+                          Settings
+                        </Link>
+                      </NavDropdown.Item>
+                      <NavDropdown.Item>
                         <Link to="/profile" style={{ color: "#000" }}>
                           Profile
                         </Link>

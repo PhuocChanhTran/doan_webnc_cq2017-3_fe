@@ -134,3 +134,17 @@ export function getSearchResult(course){
 export function getMySubscribeCourse(){
   return axios.get(`/subcribers/me/`);
 }
+
+
+export function getHotCourses(){
+  return axios.get("/courses/hot-courses");
+}
+
+export function getNewCourses(){
+  return axios.get("/courses/new-courses");
+}
+
+
+export function getPopularCourses(){
+  return axios.get("/courses/popular-courses");
+}

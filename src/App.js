@@ -20,6 +20,7 @@ import Verify from "./containers/Auth/VerifyOTP";
 import Home from './containers/Home/Home'
 import Course from './containers/Course/Course'
 import NotFound from './containers/NotFound';
+import Settings from './containers/Settings/Settings';
 import Profile from './containers/Profile/Profile';
 import LecturerDashBoard from './containers/Daskboard/LecturerDashBoard';
 import MySubscribeCourse from './containers/MySubcribeCourse/MySubscribeCourse'
@@ -66,6 +67,9 @@ function App() {
             <HomeRoute exact path="/checkout">
                 <Checkout />
               </HomeRoute>
+            <UserRoute exact path='/settings' >
+                <Settings></Settings>
+            </UserRoute>   
             <UserRoute exact path='/profile' >
                 <Profile></Profile>
             </UserRoute>
