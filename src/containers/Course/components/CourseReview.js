@@ -7,11 +7,20 @@ import {getFormattedDate,getFormattedDateAllTime} from '../../../services/common
 import {getUserInfo} from '../../../services/user.service'
 import {postRatingAndFeedBack} from '../../../services/course.service'
 
+import socketIOClient from "socket.io-client";
+
 import Swal from 'sweetalert2';
+const host = "http://localhost:3030";
+
 export default function Review(){
     const {store,dispatch} = useContext(CourseContext);
     const [rate,setRate]  = useState("");
     const feedBackEle = useRef("");
+    //socket io vars
+    const socketRef = useRef();
+    const [id, setId] = useState();
+    const [mess, setMess] = useState([]);
+
 
     const btnRatingClicked = (rate) =>{
         console.log(rate);
@@ -28,6 +37,25 @@ export default function Review(){
             })
         }
         loadCurrentUser()
+        //socket connection
+        socketRef.current = socketIOClient.connect(host);
+        socketRef.current.on('getId', data => {
+            setId(data)
+        }) // phần này đơn giản để gán id cho mỗi phiên kết nối vào page. Mục đích chính là để phân biệt đoạn nào là của mình đang chat.
+    
+        socketRef.current.on('sendDataServer', dataGot => {
+            console.log(dataGot.data.content);
+            dispatch({
+                type:"post-review",
+                payload:{
+                    newReview: dataGot.data.content
+                }
+            })
+        }) // mỗi khi có tin nhắn thì mess sẽ được render thêm 
+    
+        return () => {
+        socketRef.current.disconnect();
+        };
     },[]);
     const btnComment_Clicked =async () =>{
         if(rate === "" || !feedBackEle.current.value){
@@ -55,6 +83,18 @@ export default function Review(){
                     console.log("comment oke",rate,feedBackEle.current.value);
                     const res = await postRatingAndFeedBack(feedBackEle.current.value,rate,store.course.course_id);
                     if(res.status===200){
+                        const msg = {
+                            content: res.data.newReview, 
+                            id: id
+                        }
+                        socketRef.current.emit('sendDataClient', msg)
+                    
+                        /*Khi emit('sendDataClient') bên phía server sẽ nhận được sự kiện có tên 'sendDataClient' và handle như câu lệnh trong file index.js
+                              socket.on("sendDataClient", function(data) { // Handle khi có sự kiện tên là sendDataClient từ phía client
+                                socketIo.emit("sendDataServer", { data });// phát sự kiện  có tên sendDataServer cùng với dữ liệu tin nhắn từ phía server
+                              })
+                        */
+
                         dispatch({
                             type:"post-review",
                             payload:{

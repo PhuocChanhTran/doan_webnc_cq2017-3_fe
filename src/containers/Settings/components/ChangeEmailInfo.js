@@ -8,17 +8,18 @@ import {
     updateUserEmail
 }from '../../../services/user.service'
 import Swal from "sweetalert2";
+
 import { useHistory } from 'react-router-dom';
 export default function ProfileInfo(){
     // const {store } = useContext(CourseContext)
     const history  = useHistory();
+
     const {store,dispatch} = useContext(SettingsContext)
     const newEmail = useRef("");
     function validateEmail(email) {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     }
-
 
     const saveChanged_Clicked =async () =>{
         const checkEmail = validateEmail(newEmail.current.value)
@@ -33,7 +34,9 @@ export default function ProfileInfo(){
             newEmail: newEmail.current.value,
         }
         const res = await updateUserEmail(updatedInfo);
+
         if(res.status ===201){
+
             dispatch({
                 type:"update-email",
                 payload:{
@@ -41,6 +44,7 @@ export default function ProfileInfo(){
                 }
             })
             Swal.fire({
+
                 title: "Đổi email thành công. Vui lòng xác thực tài khoản!",
                 showCancelButton: true,
                 confirmButtonText: `OK`
@@ -50,6 +54,7 @@ export default function ProfileInfo(){
                     localStorage.usernameVerify = store.userInfo.username;  
                     history.push('/verify');
                 } 
+
             })
             newEmail.current.value = ""
         }else{
@@ -62,15 +67,19 @@ export default function ProfileInfo(){
     }
 
 
+
     return (
         <Card className="profile-card">
+
             <Card.Body>
                 <Row className="justify-content-md-start profile-info-row">
                     <Col
                         md={4}
                     >
                         <div>New Email</div>
+
                         <Form.Control  placeholder="New Email..." className="border border-dark border-bottom" plaintext defaultValue={store.userInfo.email} ref={newEmail} />
+
                     </Col>
                 </Row>
                 <Row className="save-change-btn">

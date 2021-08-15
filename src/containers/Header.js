@@ -182,7 +182,7 @@ export default function Header(props) {
                     </NavDropdown>
                   </>
                 ) : (
-                  <Nav.Link href="/login">Login</Nav.Link>
+                  <Nav.Link ><Link to="/login">Login</Link></Nav.Link>
                 )}
               </Nav>
             </div>
