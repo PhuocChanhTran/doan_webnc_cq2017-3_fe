@@ -1,11 +1,11 @@
-import React, {useState,useReducer, useEffect} from 'react'
+import React, {useReducer, useEffect} from 'react'
 import DataTable, { createTheme } from 'react-data-table-component';
-import { Container, Button, Modal, Form, Col, Row } from 'react-bootstrap';
+import { Container} from 'react-bootstrap';
 import {getMySubscribeCourse} from '../../services/course.service'
 import emptyCourse from '../../assets/images/emptyCourse.jpg'
-import Swal from "sweetalert2";
 import {Link} from 'react-router-dom'
 import mySubscribeCourseReducer from './mySubscribeCourseReducer';
+import {getFormattedDate} from '../../services/common.service'
 // const CustomTitle = ({ row }) => (
 //     <div>
 //         {}
@@ -24,7 +24,7 @@ createTheme('solarized', {
       secondary: '#2aa198',
     },
     background: {
-      default: '#bdf3b2',
+      default: '#c6e4f5',
     },
     context: {
       background: '#cb4b16',
@@ -76,6 +76,11 @@ export default function MySubscribeCourse(){
       sortable: true,
       maxWidth: '600px', // when using custom you should use width or maxWidth, otherwise, the table will default to flex grow behavior
       cell: row => `${row.course_name.slice(0, 200)}...`,
+    },  
+    {
+      name: 'Image',
+      grow: 0,
+      cell: row => <img height="84px" width="70px" alt={row.course_image} src={row.course_image?"http://localhost:3001/uploads/images/"+row.course_image:emptyCourse} />,
     },
     // {
     //   name: 'Title',
@@ -90,30 +95,28 @@ export default function MySubscribeCourse(){
       sortable: true,
       cell: row => `${row.course_shortdescription.slice(0, 200)}...`,
     },
+    
+    
     {
       name: 'Price',
       grow: 0,
-      cell: row => <div>{row.price}</div>,
+      cell: row => <div>{row.purchased_total}</div>,
     },
     {
-      name: 'Saleoff',
+      name: 'Date',
       grow: 0,
-      cell: row => <div>{row.saleoff*100}%</div>,
+      cell: row => <div>{getFormattedDate(row.purchased_date)}</div>,
     },
-    {
-      name: 'Image',
-      grow: 0,
-      cell: row => <img height="84px" width="70px" alt={row.course_image} src={row.course_image?"http://localhost:3001/uploads/images/"+row.course_image:emptyCourse} />,
-    },
+    
     {
       name: 'Status',
       maxWidth: "30px",
-      cell: row => `${row.course_status && row.course_status === 1?"Hoàn thành":"Chưa hoàn thành"}`,
+      cell: row => row.course_status && row.course_status === 1?<i class="fa fa-check-square-o fa-2x text-success"/>:<i class="fa fa fa-square-o fa-2x text-danger"/>,
     },
     {
       name: 'Link',
       button: true,
-      cell: row => <a href="/" target="_blank" rel="noopener noreferrer"><Link to={"/courses/"+row.course_id}>View</Link></a>,
+      cell: row => <a className="btn btn-secondary" target="_blank" rel="noopener noreferrer"><Link to={"/courses/"+row.course_id}>View</Link></a>,
     },
   ];
   const customStyles = {
