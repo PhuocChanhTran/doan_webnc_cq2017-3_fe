@@ -136,6 +136,11 @@ export function getMySubscribeCourse(){
 }
 
 
+export function setMySubscribeCourses(courseIdList) {
+  return axios.post('/subcribers/checkout',{courseIdList});
+}
+
+
 export function getHotCourses(){
   return axios.get("/courses/hot-courses");
 }

@@ -10,13 +10,19 @@ import visa from "./assets/images/visa-checkbox.png";
 import paysafe from "./assets/images/paysafe-checkbox.png";
 import bitcoin from "./assets/images/bitcoin-checkbox.png";
 import { getCartList } from "../../services/cart.service";
+import { setMySubscribeCourses } from "../../services/course.service";
+
 import CourseItem from "./components/CourseItem";
-import Modal from './Modal';
+
+import Swal  from "sweetalert2";
+import { useHistory } from "react-router";
+//import { coursesSearchAll } from "../../../../backend1/models/course.model";
+
 
 
 function Checkout() {
   const [cartList, setCartList] = React.useState(null);
-
+  const history = useHistory();
   React.useEffect(() => {
     async function getCarts() {
       const res = await getCartList();
@@ -31,9 +37,28 @@ function Checkout() {
   const total = React.useMemo(() => {
     let total = 0;
     cartList?.forEach((cart) => (total += cart.price));
-
+    
+    //console.log(cartList);
     return total;
   }, [cartList]);
+  const btnOrderNow_Clicked =async () =>{
+    const courseIdList = cartList.map (c=> c.course_id);
+    console.log(courseIdList);
+    const res = await setMySubscribeCourses(courseIdList);
+    if(res.status  === 200){
+      Swal.fire({
+        title: "Purchasing Course Successfully",
+        icon:"success"
+      })
+      history.push("/mysubcribecourses");
+    }else{
+      Swal.fire({
+        title: "Purchasing Course Successfully",
+        text:`${res.data.message}`,
+        icon:"success"
+      })
+    }
+  }
 
   return (
     <main id="main-section" style={{ marginBottom: "3em" }}>
@@ -310,7 +335,11 @@ function Checkout() {
                           </a>
                         </p>
                         <p className="btn-order-checkout text-center form-default-submit wow fadeInUp">
-                          <Modal/>
+
+                        <button type="button" class="btn btn-primary" onClick = {btnOrderNow_Clicked} >
+                            Order Now
+                        </button>
+
                         </p>
                       </div>
                     </div>

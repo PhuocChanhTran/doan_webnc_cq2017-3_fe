@@ -26,7 +26,9 @@ export default function ProfileInfo(){
         } else {
             console.log('123',updatedInfo);
             const res = await updateUserPassword(updatedInfo);
-            if(res.status ===200){
+
+            if(res.status ===201){
+
                 dispatch({
                     type:"update-password",
                     payload:{
@@ -35,14 +37,18 @@ export default function ProfileInfo(){
                     }
                 })
                 Swal.fire({
-                    title: "Cập nhật Mật khẩu thành công!",
+
+                    title: "Đổi mật khẩu thành công!",
+
                     icon: "success"
                 })
             }else{
                 Swal.fire({
-                    title: "Cập nhật Mật khẩu thành công!",
+
+                    title: "Cập nhật thất bại!",
                     icon: "error",
-                    confirmButtonText: `${res.data.message}`
+                    text: `${res.data.message}`
+
                 })
             }
         }
@@ -56,7 +62,9 @@ export default function ProfileInfo(){
                         md={4}
                     >
                         <div>Current Password</div>
-                        <Form.Control required type="password" className="border border-dark border-bottom" plaintext defaultValue={store.userInfo.currentPassword} ref={currentPassword} />
+
+                        <Form.Control required type="password" className="border border-dark border-bottom" plaintext  ref={currentPassword} />
+
                     </Col>
                 </Row>
                 <Row className="justify-content-md-start profile-info-row">
@@ -64,7 +72,9 @@ export default function ProfileInfo(){
                         md={4}
                     >
                         <div>New Password</div>
-                        <Form.Control required type="password" className="border border-dark border-bottom" plaintext defaultValue={store.userInfo.newPassword}  ref={newPassword} />
+
+                        <Form.Control required type="password" className="border border-dark border-bottom" plaintext   ref={newPassword} />
+
                     </Col>
                 </Row>
                 <Row className="save-change-btn">
