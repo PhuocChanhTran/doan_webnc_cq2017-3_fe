@@ -21,18 +21,14 @@ function Verify(){
             }
             if(res.status  === 201){
                 delete localStorage.usernameVerify
-                history.push('/home');
-                // Swal.fire({
-                //     title: "Đăng ký thành công. Vui lòng xác thực tài khoản trước khi đăng nhập!",
-                //     showCancelButton: true,
-                //     confirmButtonText: `OK`
-                // }).then((result) => {
-                //     /* Read more about isConfirmed, isDenied below */
-                //     if (result.isConfirmed) {
-                //         localStorage.usernameVerify = user.username;  
-                //         history.push('/verify');
-                //     } 
-                // })
+                Swal.fire({
+                    title: "Xác thực email thành công!",
+                    showCancelButton: true,
+                    confirmButtonText: `OK`,
+                    timer: 1500
+                })
+                history.push('/');
+                
             }
         }
         catch(err){
