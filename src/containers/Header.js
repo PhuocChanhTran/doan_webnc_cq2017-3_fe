@@ -160,11 +160,22 @@ export default function Header(props) {
                         </Link>
                       </NavDropdown.Item>
                       {localStorage.userRole === "lecturer" ? (
-                        <NavDropdown.Item>
+                        <>
+                          <NavDropdown.Item>
                           <Link to="/mycourses" style={{ color: "#000" }}>
-                            My course
+                            My courses
                           </Link>
                         </NavDropdown.Item>
+                        <NavDropdown.Item>
+                        <Link
+                          to="/mysubcribecourses"
+                          style={{ color: "#000" }}
+                        >
+
+                          My subscribe courses
+                        </Link>
+                      </NavDropdown.Item>
+                        </>
                       ) : (
                         <NavDropdown.Item>
                           <Link
@@ -172,7 +183,7 @@ export default function Header(props) {
                             style={{ color: "#000" }}
                           >
 
-                            My subcribe course
+                            My subscribe courses
                           </Link>
                         </NavDropdown.Item>
                       )}

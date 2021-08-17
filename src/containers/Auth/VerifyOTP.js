@@ -13,7 +13,7 @@ function Verify(){
             console.log(res.data);  
             if(res.status === 200){
                 Swal.fire({
-                    title: "Xác thực thất bại",
+                    title: "Verify failed!",
                     icon: "error",
                     text: `${res.data.message}`,
                     confirmButtonText: "OK",
@@ -21,13 +21,15 @@ function Verify(){
             }
             if(res.status  === 201){
                 delete localStorage.usernameVerify
+                delete localStorage.userEmail;
+                delete localStorage.accessToken;
+                delete localStorage.refreshToken;
                 Swal.fire({
-                    title: "Xác thực email thành công!",
+                    title: "Verify email successfully! Redirect to login page",
                     showCancelButton: true,
-                    confirmButtonText: `OK`,
                     timer: 1500
                 })
-                history.push('/');
+                history.push('/login');
                 
             }
         }
@@ -59,6 +61,9 @@ function Verify(){
     }
     const backLogin_Clicked = () =>{
         delete localStorage.usernameVerify;
+        delete localStorage.userEmail;
+        delete localStorage.accessToken;
+        delete localStorage.refreshToken;
         console.log(localStorage.getItem('usernameVerify'));
         history.push('/login');
     }

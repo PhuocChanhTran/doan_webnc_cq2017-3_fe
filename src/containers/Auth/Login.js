@@ -5,7 +5,7 @@ import {login, parseJwt} from "../../services/auth.service"
 import Swal from "sweetalert2";
 function Login(){
     const history = useHistory();
-    const { register, handleSubmit  } = useForm();
+    const { register,formState: { errors }, handleSubmit  } = useForm();
     const onSubmit = async(data) => {
         console.log(data);
         try{
@@ -13,7 +13,7 @@ function Login(){
             console.log(res.data);  
             if(res.data.authenticated === "fail"){
                 Swal.fire({
-                    title: "Đăng nhập thấp bại",
+                    title: "Login failed",
                     icon: "error",
                     text: `${res.data.message}`,
                     confirmButtonText: "OK",
@@ -21,7 +21,7 @@ function Login(){
             }
             if(res.data.authenticated === "verify"){
                 Swal.fire({
-                    title: "Xác thực tài khoản trước khi đăng nhập!",
+                    title: "Please verify your account!",
                     showCancelButton: true,
                     confirmButtonText: `OK`
                 }).then((result) => {
@@ -68,11 +68,13 @@ function Login(){
                                 <form onSubmit={handleSubmit(onSubmit)}>
                                     <div className="form-group">
                                         <label htmlFor="inputLoginForm-username">USERNAME</label>
-                                        <input type="text" className="form-control" id="inputLoginForm-username" placeholder="abc134" {...register("username")} required ></input>
+                                        <input type="text" className="form-control" id="inputLoginForm-username" placeholder="abc134" {...register("username", { maxLength: 16 })} required></input>
+                                        {errors.username && "username max length 16"}
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="inputLoginForm-password">PASSWORD</label>
-                                        <input type="password" className="form-control" id="inputLoginForm-password" placeholder="************" {...register("password")} required></input>
+                                        <input type="password" className="form-control" id="inputLoginForm-password" placeholder="************" {...register("password", { maxLength: 20,minLength:4 })} required></input>
+                                        {errors.password && "Min length:4, Max length 20"}
                                     </div>
                                     <div className="login-submit">
                                         <p className="sub-account">Don't have an account? <NavLink to="/register">Sign up</NavLink></p>

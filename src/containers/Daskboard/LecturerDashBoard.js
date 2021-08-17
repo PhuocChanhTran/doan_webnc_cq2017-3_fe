@@ -6,6 +6,7 @@ import {loadAllCategory,loadAllPostedCourse,postNewCourse} from '../../services/
 import emptyCourse from '../../assets/images/emptyCourse.jpg'
 import Swal from "sweetalert2";
 import {Link} from 'react-router-dom'
+import { useForm } from 'react-hook-form';
 // const CustomTitle = ({ row }) => (
 //     <div>
 //         {}
@@ -43,6 +44,7 @@ createTheme('solarized', {
 
 
 export default function LecturerDashBoard(){
+  const {register,formState: { errors },handleSubmit} = useForm();
   const [newCourse, setNewCourse] = useState({ courseName: "", shortDescription: "",categoryId:1,price:0,saleoff:0,sectionCount:0 });
   const initialDashboardState = {
     categories:[],
@@ -161,10 +163,21 @@ export default function LecturerDashBoard(){
         },
       },
   };
-  const handleSaveChange =async () =>{
-    console.log(newCourse);
-    console.log(store)
-    const res = await postNewCourse(newCourse);
+  const onSubmit = async(data) => {
+    // console.log(newCourse);
+    // console.log(store)
+    console.log(data)
+    const newCourse1 = { 
+      courseName: data.courseName1, 
+      shortDescription: data.shortDescription1,
+      categoryId:parseInt(data.categoryId1),
+      price:parseInt(data.price1),
+      saleoff:parseFloat(data.saleoff1),
+      sectionCount:parseInt(data.sectionCount1)
+    }
+    console.log(newCourse1)
+
+    const res = await postNewCourse(newCourse1);
     console.log(res.data);
     if(res.status===201){
       dispatch({
@@ -180,6 +193,7 @@ export default function LecturerDashBoard(){
       setShow(false)
     }
   }
+
   const handleChange = (e) =>{
     const { name, value } = e.target;
     setNewCourse(prevState => ({
@@ -223,23 +237,28 @@ export default function LecturerDashBoard(){
               <Modal.Title>Add course(basic info)</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <Form>
+                <Form onSubmit={handleSubmit(onSubmit)}>
                   
 
                   <Form.Group className="mb-3" controlId="courseName">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control name="courseName" onChange={(e)=>handleChange(e)} placeholder="Abc programming course" />
+                    <Form.Control name="courseName" onChange={(e)=>handleChange(e)} placeholder="Abc programming course" {...register("courseName1",{required:true})}/>
+                    {errors.courseName1?.type==="required" && "Course name is required"}
+                    {/* <input type="text" className="form-control" id="inputRegisterForm-username" placeholder="abc1245"{...register("username",{maxLength:16})}required></input>
+										{errors.username && "Max length 16"} */}
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="shortDescription">
                     <Form.Label>Short Description</Form.Label>
-                    <Form.Control name="shortDescription" onChange={(e)=>handleChange(e)} placeholder="learning abc" />
+                    <Form.Control name="shortDescription" onChange={(e)=>handleChange(e)} placeholder="learning abc" {...register("shortDescription1",{required:true})}/>
+                    {errors.shortDescription1?.type==="required" && "Short Description is required"}
                   </Form.Group>
 
                   <Row className="mb-3">
                     <Form.Group as={Col} controlId="price">
                       <Form.Label>Price</Form.Label>
-                      <Form.Control name="price" onChange={(e)=>handleChange(e)}  type="number" min="0" />
+                      <Form.Control name="price" onChange={(e)=>handleChange(e)}  type="number" {...register("price1",{required:true})}/>
+                      {errors.price1?.type==="required" && "Price is required"}
                     </Form.Group>
 
                     
@@ -247,38 +266,39 @@ export default function LecturerDashBoard(){
 
                     <Form.Group as={Col} controlId="saleoff">
                       <Form.Label>Sale off</Form.Label>
-                      <Form.Control name="saleoff" onChange={(e)=>handleChange(e)} type="number" min="0" max = "1"/>
+                      <Form.Control name="saleoff" onChange={(e)=>handleChange(e)} type="number" {...register("saleoff1",{required:true,min:0,max:1})}  step="any" min="0" max="1"/>
+                      {errors.saleoff1 && "Saleoff is required and value between(0,1)"}
                     </Form.Group>
                   </Row>
 
                   <Form.Group className="mb-3" controlId="categoryId">
                       <Form.Label>Category</Form.Label>
-                      <Form.Select name="categoryId" onChange={(e)=>handleChange(e)} defaultValue="Chosoe...">
+                      <Form.Select name="categoryId" onChange={(e)=>handleChange(e)} defaultValue="Chosoe..." {...register("categoryId1",{required:true})}>
                         {store.categories?store.categories.map((c)=><option value={c.category_id}>{c.category_name}</option>):""}
                       </Form.Select>
+                      {errors.categoryId1?.type==="required" && "Category is required."}
                     </Form.Group>
                   
                   <Form.Group className="mb-3" controlId="sectionCount">
                     <Form.Label>Sections</Form.Label>
-                    <Form.Control name="sectionCount" onChange={(e)=>handleChange(e)} type="number" min="0"/>
+                    <Form.Control name="sectionCount" onChange={(e)=>handleChange(e)} type="number" {...register("sectionCount1",{required:true, min:0, max:20})}/>
+                    {errors.sectionCount1 && "Sections is required and value between(0,20)"}
                   </Form.Group>
 {/* 
                   <Form.Group className="mb-3" id="formGridCheckbox">
                     <Form.Check type="checkbox" label="Check me out" />
                   </Form.Group>
-
-                  <Button variant="primary" type="submit">
-                    Submit
-                  </Button> */}
+*/}                   
+                   <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" type="submit">
+                        Save Changes
+                    </Button>
                 </Form>
               </Modal.Body>
               <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                  Close
-              </Button>
-              <Button variant="primary" onClick={handleSaveChange}>
-                  Save Changes
-              </Button>
+             
               </Modal.Footer>
           </Modal>
 
