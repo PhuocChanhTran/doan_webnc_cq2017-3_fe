@@ -4,7 +4,7 @@ const defaultValue = {
     hotCourse:[],
     popularCourse:[],
     newCourse:[],
-
+    topCategories: []
 
 };
 const homeContext = createContext(defaultValue);

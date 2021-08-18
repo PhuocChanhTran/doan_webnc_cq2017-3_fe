@@ -5,18 +5,21 @@ import "../../App.css";
 import homeReducer from "./homeReducer";
 import homeContext from "./homeContext";
 
-import { getHotCourses, getNewCourses, getPopularCourses } from "../../services/course.service";
+import { getHotCourses, getNewCourses, getPopularCourses,getTopCategories,getViewestCourses } from "../../services/course.service";
 
 import HotCourse from "./components/HotCourse";
 import PopularCourse from "./components/PopularCourse";
+import ViewestCourse from "./components/ViewestCourse";
 import NewCourse from "./components/NewCourse";
 import Section from "./components/Section";
-
+import TopCategories from "./components/TopCategories"
 export default function Home() {
   const initialHomeState = {
     hotCourse: [],
     popularCourse: [],
     newCourse: [],
+    viewestCourses: [],
+    topCategories:[],
   };
   const [store, dispatch] = useReducer(homeReducer, initialHomeState);
 
@@ -79,9 +82,49 @@ export default function Home() {
         });
       }
     }
+    async function loadViewestCourses() {
+      const res = await getViewestCourses();
+      if (res.status === 200) {
+        dispatch({
+          type: "initViewestCourse",
+          payload: {
+            viewestCourses: res.data,
+          },
+        });
+      }
+      if (res.status === 204) {
+        dispatch({
+          type: "initViewestCourse",
+          payload: {
+            viewestCourses: [],
+          },
+        });
+      }
+    }
+    async function loadTopCategories() {
+      const res = await getTopCategories();
+      if (res.status === 200) {
+        dispatch({
+          type: "initTopCategories",
+          payload: {
+            topCategories: res.data,
+          },
+        });
+      }
+      if (res.status === 204) {
+        dispatch({
+          type: "initTopCategories",
+          payload: {
+            topCategories: [],
+          },
+        });
+      }
+    }
     loadHotCourse();
     loadPopularCourse();
     loadNewCourse();
+    loadViewestCourses();
+    loadTopCategories()
   }, []);
 
   return (
@@ -92,8 +135,9 @@ export default function Home() {
 
           <div className="row">
               <HotCourse> </HotCourse>
-              <PopularCourse> </PopularCourse>
+              <ViewestCourse> </ViewestCourse>
               <NewCourse> </NewCourse>
+              <TopCategories> </TopCategories>
           </div>
         </div>
       </homeContext.Provider>

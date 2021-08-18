@@ -17,6 +17,16 @@ export default function homeReducer(state, action) {
           ...state,
           popularCourse: action.payload.popularCourse,
         }
+      case 'initTopCategories':
+        return{
+          ...state,
+          topCategories: action.payload.topCategories
+        }
+      case "initViewestCourse":
+        return{
+          ...state,
+          viewestCourses: action.payload.viewestCourses
+        }
       default:
         return state;
     }
