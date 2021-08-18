@@ -29,7 +29,7 @@ import WebCourse  from './containers/WebCourse/WebCourse';
 import MobileCourse  from './containers/MobileCourse/MobileCourse';
 import Checkout from "./containers/Checkout/Checkout";
 import SearchResult from "./containers/SearchResult/SearchResult";
-
+import CourseByCategory from './containers/CourseByCategory/CourseByCategory'
 import 'react-quill/dist/quill.snow.css';
 import AppProvider from './contexts/AppProvider';
 
@@ -53,6 +53,9 @@ function App() {
             </HomeRoute> */}
             <HomeRoute exact path="/">
               <Home></Home>
+            </HomeRoute>
+            <HomeRoute exact path="/courses/category/:categoryId">
+              <CourseByCategory></CourseByCategory>
             </HomeRoute>
             <HomeRoute exact path="/courses/category/web-courses">
               <WebCourse></WebCourse>
