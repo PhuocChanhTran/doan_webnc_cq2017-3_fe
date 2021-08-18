@@ -104,8 +104,8 @@ export default function Header(props) {
                 />
                 <FormSelect onChange={(e)=>handleFilterByCategory(e)} defaultValue="default">
                   <option value="default">All</option>
-                  <option value={0}>Web Course</option>
-                  <option value={1}>Mobile Course</option>
+                  <option value={1}>Web Course</option>
+                  <option value={2}>Mobile Course</option>
                 </FormSelect>
                 <Button variant="outline-primary" onClick={handleButton_click}>
                   <i class="fa fa-search"></i>

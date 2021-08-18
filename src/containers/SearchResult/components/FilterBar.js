@@ -46,8 +46,8 @@ export default function FilterBar() {
                 <h5>Category</h5>
                 <FormSelect onChange={(e)=>handleFilterByCategory(e)} defaultValue="all" style={{width:"150px"}}>
                   <option value="all">All</option>
-                  <option value={0}>Web Course</option>
-                  <option value={1}>Mobile Course</option>
+                  <option value={1}>Web Course</option>
+                  <option value={2}>Mobile Course</option>
                 </FormSelect>
               </li>
               <li className="control">
