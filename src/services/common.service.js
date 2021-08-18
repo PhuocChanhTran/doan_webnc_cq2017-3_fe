@@ -25,3 +25,31 @@ export function getFormattedDateAllTime(date){
         return parseInt((thisD-d)/(60*60*1000));
    }
 }
+
+export function sortCourseByCreatedDateFunction(a, b) {
+    if (a.created_date === b.created_date) {
+        return 0;
+    }
+    else {
+        return (a.created_date > b.created_date) ? -1 : 1;
+    }
+}
+
+
+export function sortCourseByRatingFunction(a, b) {
+    if (a.course_rv_point === b.course_rv_point) {
+        return 0;
+    }
+    else {
+        return (a.course_rv_point > b.course_rv_point) ? -1 : 1;
+    }
+}
+
+export function sortCourseByPriceFunction(a, b) {
+    if (a.price*(1-a.saleoff) === b.price*(1-b.saleoff)) {
+        return 0;
+    }
+    else {
+        return (a.price*(1-a.saleoff) < b.price*(1-b.saleoff)) ? -1 : 1;
+    }
+}

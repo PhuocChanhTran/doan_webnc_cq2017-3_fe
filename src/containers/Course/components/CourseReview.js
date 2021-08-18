@@ -95,13 +95,6 @@ export default function Review(){
                               })
                         */
 
-                        dispatch({
-                            type:"post-review",
-                            payload:{
-                                newReview: res.data.newReview
-                            }
-                        })
-                       
                     }else{
                         Swal.fire({
                             title: "Error",

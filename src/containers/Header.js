@@ -4,6 +4,7 @@ import {
   Button,
   Form,
   FormControl,
+  FormSelect,
   Nav,
   Navbar,
   NavDropdown,
@@ -16,6 +17,8 @@ import FrameCart from "./Cart/FrameCart";
 import FrameWatch from "./WatchList/FrameWatch";
 
 export default function Header(props) {
+  const [searchKey, setsearchKey] = useState("");
+  const [categoryFilter,setCategoryFilter] = useState("default");
   const history = useHistory();
   const signOutBtn_Clicked = () => {
     delete localStorage.userEmail;
@@ -24,14 +27,17 @@ export default function Header(props) {
     history.push("/");
   };
 
-  const [searchKey, setsearchKey] = useState("");
   const handleSearchKeyChanged = function (e) {
     setsearchKey(e.target.value);
   };
   const handleButton_click = function () {
-    history.push(`/courses/search?course=${searchKey}`);
+    console.log(categoryFilter);
+    history.push(`/courses/search?course=${searchKey}&categoryId=${categoryFilter}`);
   };
-
+  const handleFilterByCategory = (e)=> {
+    console.log(e.target.value);
+    setCategoryFilter(e.target.value);
+  }
 
   return (
     <div>
@@ -96,8 +102,13 @@ export default function Header(props) {
                   aria-label="Search"
                   onChange={handleSearchKeyChanged}
                 />
+                <FormSelect onChange={(e)=>handleFilterByCategory(e)} defaultValue="default">
+                  <option value="default">All</option>
+                  <option value={0}>Web Course</option>
+                  <option value={1}>Mobile Course</option>
+                </FormSelect>
                 <Button variant="outline-primary" onClick={handleButton_click}>
-                  Search
+                  <i class="fa fa-search"></i>
                 </Button>
               </Form>
             </div>

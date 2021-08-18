@@ -5,17 +5,20 @@ import "../../App.css";
 
 import searchResultReducer from "./searchResultReducer";
 import searchResultContext from "./searchResultContext";
-
+import { Row,Col } from "react-bootstrap";
 import { getSearchResult } from "../../services/course.service";
 
 import SearchResultList from "./components/SearchResultList";
-import Section from "./components/Section";
+import FilterBar from "./components/FilterBar";
+import OrderByBar from "./components/OrderByBar";
 
 export default function SearchResult() {
   const {search} = useLocation();
-  const {course}=queryString.parse(search);
+  const {course,categoryId}=queryString.parse(search);
   const initialSearchResultCourseState = {
+    backupCourses:[],
     searchResultCourse: [],
+
   };
   const [store, dispatch] = useReducer(
     searchResultReducer,
@@ -23,7 +26,8 @@ export default function SearchResult() {
   );
   useEffect(function () {
     async function loadSearchResultCourse() {
-      const res = await getSearchResult(course);
+      console.log("queryString.parse(search)",queryString.parse(search),course,categoryId);
+      const res = await getSearchResult(course,categoryId);
       console.log("resultcourse iisss:");
       console.log(res.data);
       if (res.status === 200) {
@@ -50,11 +54,18 @@ export default function SearchResult() {
     <div>
       <searchResultContext.Provider value={{ store, dispatch }}>
         <div className="container">
-          <Section></Section>
+          <Row>
+            <Col xs lg="3">
+              <FilterBar></FilterBar>
+            </Col>
+            <Col>
+              <OrderByBar></OrderByBar>
 
-          <div className="row">
-            <SearchResultList> </SearchResultList>
-          </div>
+              <SearchResultList> </SearchResultList>
+
+
+            </Col>
+          </Row>
         </div>
       </searchResultContext.Provider>
     </div>
