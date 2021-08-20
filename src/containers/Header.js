@@ -16,7 +16,7 @@ import FrameCart from "./Cart/FrameCart";
 import FrameWatch from "./WatchList/FrameWatch";
 import {AppContext} from "../contexts/AppProvider";
 import logo from '../assets/images/logo.png'
-import pageBg1 from '../assets/page-bg/1.jpg'
+import pageBg1 from '../assets/images/page-bg/1.jpg'
 export default function Header(props) {
   const [searchKey, setsearchKey] = useState("");
   const [categoryFilter,setCategoryFilter] = useState("default");
