@@ -12,9 +12,7 @@ function CourseItem({ course, index }) {
           href="#asdsd"
           className="img-product-item-cart"
           style={{
-            backgroundImage: `url('http://localhost:3000/img/courses/${
-              course.course_id < 7 ? course.course_id : 1
-            }.jpg')`,
+            backgroundImage: `url('https://bct-onlinecourses-be.herokuapp.com/uploads/images/${course.course_image}')`,
           }}
           tabIndex="0"
         ></a>

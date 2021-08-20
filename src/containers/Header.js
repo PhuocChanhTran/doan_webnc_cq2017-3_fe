@@ -15,7 +15,8 @@ import "../App.css";
 import FrameCart from "./Cart/FrameCart";
 import FrameWatch from "./WatchList/FrameWatch";
 import {AppContext} from "../contexts/AppProvider";
-
+import logo from '../assets/images/logo.png'
+import pageBg1 from '../assets/page-bg/1.jpg'
 export default function Header(props) {
   const [searchKey, setsearchKey] = useState("");
   const [categoryFilter,setCategoryFilter] = useState("default");
@@ -45,7 +46,7 @@ export default function Header(props) {
     <div>
       <div
         className=" set-bg top-container"
-        data-setbg="http://localhost:3000/img/page-bg/1.jpg"
+        data-setbg={pageBg1}
       >
         <nav class="secondary-menu">
           <div>
@@ -87,7 +88,7 @@ export default function Header(props) {
                 {/* <img src="img/logo.png" alt /> */}
                 <Link to="/">
                   <a>
-                    <img src="http://localhost:3000/img/logo.png" alt />
+                    <img src={logo} alt />
                   </a>
                 </Link>
               </div>

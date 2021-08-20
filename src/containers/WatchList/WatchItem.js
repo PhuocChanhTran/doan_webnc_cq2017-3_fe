@@ -8,9 +8,9 @@ function WatchItem({ item, handleDelete }) {
       <Row>
         <Col lg={3} md={3}>
           <img
-            src={`http://localhost:3000/img/courses/${
-              item.course_id < 7 ? item.course_id : 1
-            }.jpg`}
+            src={`https://bct-onlinecourses-be.herokuapp.com/uploads/images/${
+              item.course_image
+            }`}
             style={{ width: "100%" }}
             alt={`${item.course_name}`}
           />
