@@ -80,7 +80,7 @@ export default function MySubscribeCourse(){
     {
       name: 'Image',
       grow: 0,
-      cell: row => <img height="84px" width="70px" alt={row.course_image} src={row.course_image?"http://localhost:3001/uploads/images/"+row.course_image:emptyCourse} />,
+      cell: row => <img height="84px" width="70px" alt={row.course_image} src={row.course_image?"https://bct-onlinecourses-be.herokuapp.com/uploads/images/"+row.course_image:emptyCourse} />,
     },
     // {
     //   name: 'Title',

@@ -18,8 +18,8 @@ export default function CourseLecturerDescription(){
                             {/* <Card.Text>
                                 Lecturer Image
                             </Card.Text> */}
-                            <img className="img-fluid img-responsive rounded-circle mr-2" src={store.lecturer.image?"http://localhost:3001/uploads/profile/"+store.lecturer.image:emptyUser} width="200px"></img>
-                            {/* <Card.Img  style={{width:"300px", height:"200px"}} src={store.lecturer.image?"http://localhost:3001/uploads/profile/"+store.lecturer.image:emptyUser} ></Card.Img> */}
+                            <img className="img-fluid img-responsive rounded-circle mr-2" src={store.lecturer.image?"https://bct-onlinecourses-be.herokuapp.com/uploads/profile/"+store.lecturer.image:emptyUser} width="200px"></img>
+                            {/* <Card.Img  style={{width:"300px", height:"200px"}} src={store.lecturer.image?"https://bct-onlinecourses-be.herokuapp.com/uploads/profile/"+store.lecturer.image:emptyUser} ></Card.Img> */}
                         </Col>
                         <Col sm={8}>
                             <Card.Text>

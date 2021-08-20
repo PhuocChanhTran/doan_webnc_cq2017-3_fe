@@ -395,7 +395,7 @@ export default function CourseContent(){
                                                                     </Col>
                                                                     <Col>
                                                                         {video.video_path?
-                                                                        <Player playsInline src = {"http://localhost:3001/uploads/videos/"+video.video_path}></Player>
+                                                                        <Player playsInline src = {"https://bct-onlinecourses-be.herokuapp.com/uploads/videos/"+video.video_path}></Player>
                                                                         :
                                                                         <div>Empty Video</div>
                                                                         }

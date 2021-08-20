@@ -47,7 +47,7 @@ export default function CourseImage(){
     return (
         <>
             <Card border="light" style={{ width: '350px' }}>
-                <Card.Img className="card-img-img" variant="top" src={store.course.course_image?"http://localhost:3001/uploads/images/"+store.course.course_image:emptyCourse} />
+                <Card.Img className="card-img-img" variant="top" src={store.course.course_image?"https://bct-onlinecourses-be.herokuapp.com/uploads/images/"+store.course.course_image:emptyCourse} />
                 <Card.Body className="card-img-body">
                     <Row>
                         <Button onClick={handleShow} variant="danger" style={{width:"100%"}}>Change Course Image</Button>

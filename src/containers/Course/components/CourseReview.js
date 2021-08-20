@@ -10,7 +10,7 @@ import {postRatingAndFeedBack} from '../../../services/course.service'
 import socketIOClient from "socket.io-client";
 
 import Swal from 'sweetalert2';
-const host = "http://localhost:3030";
+const host = "https://bct-onlinecourses-be.herokuapp.com:3030";
 
 export default function Review(){
     const {store,dispatch} = useContext(CourseContext);
@@ -123,7 +123,7 @@ export default function Review(){
                     <div className="d-flex justify-content-center row">
                         <div className="d-flex flex-column col-md-8">
                             <div className="d-flex flex-row add-comment-section mt-4 mb-4">
-                                <img className="img-fluid img-responsive rounded-circle mr-2" src={store.user.image?"http://localhost:3001/uploads/profile/"+store.user.image:emptyUser} width="38"></img>
+                                <img className="img-fluid img-responsive rounded-circle mr-2" src={store.user.image?"https://bct-onlinecourses-be.herokuapp.com/uploads/profile/"+store.user.image:emptyUser} width="38"></img>
                                 <a className="btn badge-rating"   >
                                     <Rating onClick={(rate)=>btnRatingClicked(rate)} onHover={(rate) => document.getElementById('label-onrate').innerHTML = rate || ''} emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={10} initialRating={rate}></Rating>
                                     <span className="badge" id="label-onrate"></span>
@@ -136,7 +136,7 @@ export default function Review(){
                                 <div>
                                     {store.reviews.map(r=>(<div className="commented-section mt-2">
                                     <div className="d-flex flex-row align-items-center commented-user">
-                                        <img className="img-fluid img-responsive rounded-circle mr-2" src={r.userImage?"http://localhost:3001/uploads/profile/"+r.userImage:emptyUser} width="38"></img>
+                                        <img className="img-fluid img-responsive rounded-circle mr-2" src={r.userImage?"https://bct-onlinecourses-be.herokuapp.com/uploads/profile/"+r.userImage:emptyUser} width="38"></img>
                                         <h5 className="mr-2">{r.userFullName}</h5>
                                         <span className="dot mb-1"></span>
                                         <div>

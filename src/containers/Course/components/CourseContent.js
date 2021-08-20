@@ -29,7 +29,7 @@ export default function CourseContent(){
                                                 </Card.Header>
                                                 <Accordion.Collapse eventKey={vIndex}>
                                                     {(video.preview_status||store.course.isView)?(<Card.Body>
-                                                        {video.video_path?<Player playsInline src = {"http://localhost:3001/uploads/videos/"+video.video_path}></Player>:<div>Empty video</div>}
+                                                        {video.video_path?<Player playsInline src = {"https://bct-onlinecourses-be.herokuapp.com/uploads/videos/"+video.video_path}></Player>:<div>Empty video</div>}
                                                     </Card.Body>):<div>Empty</div>}
                                                 </Accordion.Collapse>
                                             </Card>

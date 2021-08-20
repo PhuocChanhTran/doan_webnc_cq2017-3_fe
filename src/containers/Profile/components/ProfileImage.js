@@ -48,7 +48,7 @@ export default function ProfileImage(){
                 
                 <div>
                     <div class="media d-block d-sm-flex align-items-center">
-                        <Card.Img className=" rounded-circle" style={{ width: '100px', height: '100px' }} variant="top" src={store.userInfo.image?"http://localhost:3001/uploads/profile/"+store.userInfo.image:emptyUser}/>
+                        <Card.Img className=" rounded-circle" style={{ width: '100px', height: '100px' }} variant="top" src={store.userInfo.image?"https://bct-onlinecourses-be.herokuapp.com/uploads/profile/"+store.userInfo.image:emptyUser}/>
                         <div class="media-body pl-sm-3 text-center text-sm-left">
                             <button class="btn btn-rounded btn-outline-primary btn-sm px-3 mb-2" type="button" onClick={handleShow}>
                                 <i class="icon icon-sync"></i> Change avatar

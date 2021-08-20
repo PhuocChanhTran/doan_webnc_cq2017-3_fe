@@ -85,7 +85,7 @@ export default function HotCourse() {
                 <a class=" hvr-shrink course-item" onClick={()=>handleCourseItemRouting_Clicked(item.course_id)}>
                         <img
                             className="course-thumb set-bg"
-                            src={item.course_image?`http://localhost:3001/uploads/images/${item.course_image}`:emptyCourse}
+                            src={item.course_image?`https://bct-onlinecourses-be.herokuapp.com/uploads/images/${item.course_image}`:emptyCourse}
                         >
                             
                         </img>
@@ -121,7 +121,7 @@ export default function HotCourse() {
                             <div className="course-author">
                                 <img
                                     className="ca-pic set-bg"
-                                    src={item.lecturerImage?`http://localhost:3001/uploads/profile/${item.lecturerImage}`:emptyUser}
+                                    src={item.lecturerImage?`https://bct-onlinecourses-be.herokuapp.com/uploads/profile/${item.lecturerImage}`:emptyUser}
                                 />
                                 <p>
                                     {item.lecturerFullName},<span>Lecturer</span>

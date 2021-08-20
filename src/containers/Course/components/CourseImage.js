@@ -33,7 +33,7 @@ export default function CourseImage() {
         variant="top"
         src={
           store.course.course_image
-            ? "http://localhost:3001/uploads/images/" +
+            ? "https://bct-onlinecourses-be.herokuapp.com/uploads/images/" +
               store.course.course_image
             : emptyCourse
         }
