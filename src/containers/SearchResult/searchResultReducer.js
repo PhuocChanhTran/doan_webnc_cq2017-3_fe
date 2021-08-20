@@ -10,10 +10,10 @@ export default function searchResultReducer(state, action) {
           searchResultCourse: action.payload.searchResultCourse,
         }
       case 'filter-set':
-        let tempSearchResult = state.backupCourses;
+        let tempSearchResult = state.backupCourses;  
         if(action.payload.categoryId !== "all"){
-          tempSearchResult = tempSearchResult.filter(c=>c.category_id === parseInt(action.payload.categoryId))
-        }
+          tempSearchResult = tempSearchResult.filter(c=>c.category_id == parseInt(action.payload.categoryId))
+        }     
         if(action.payload.saleoff === "low"){
           tempSearchResult = tempSearchResult.filter(c=>c.saleoff >= 0 && c.saleoff <= 0.3)
         }else if(action.payload.saleoff === "normal")
@@ -23,6 +23,7 @@ export default function searchResultReducer(state, action) {
         {
           tempSearchResult = tempSearchResult.filter(c=>c.saleoff >= 0.7 && c.saleoff <= 1)
         }
+        
         return {
           ...state,
           searchResultCourse: tempSearchResult

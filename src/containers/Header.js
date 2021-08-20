@@ -11,22 +11,24 @@ import {
 } from "react-bootstrap";
 import { useContext, useEffect, useState } from "react";
 
-
 import "../App.css";
 import FrameCart from "./Cart/FrameCart";
 import FrameWatch from "./WatchList/FrameWatch";
+import {AppContext} from "../contexts/AppProvider";
 
 export default function Header(props) {
   const [searchKey, setsearchKey] = useState("");
   const [categoryFilter,setCategoryFilter] = useState("default");
   const history = useHistory();
+  const {store} =useContext(AppContext);
+  
+  
   const signOutBtn_Clicked = () => {
     delete localStorage.userEmail;
     delete localStorage.accessToken;
     delete localStorage.refreshToken;
     history.push("/");
   };
-
   const handleSearchKeyChanged = function (e) {
     setsearchKey(e.target.value);
   };
@@ -117,7 +119,7 @@ export default function Header(props) {
                 <NavDropdown title="IT" id="basic-nav-dropdown">
                   <NavDropdown.Item>
                     <Link
-                      to="/courses/category/web-courses"
+                      to="/courses/category/1"
                       style={{ color: "#000" }}
                     >
                       Web courses
@@ -125,7 +127,7 @@ export default function Header(props) {
                   </NavDropdown.Item>
                   <NavDropdown.Item>
                     <Link
-                      to="/courses/category/mobile-courses"
+                      to="/courses/category/2"
                       style={{ color: "#000" }}
                     >
 

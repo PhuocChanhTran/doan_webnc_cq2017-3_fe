@@ -4,7 +4,7 @@ import { FormSelect, Row} from 'react-bootstrap'
 import searchResultContext from "../searchResultContext";
 export default function FilterBar() {
   // const {store} = useContext(homeContext);
-  const [searchFilter,setSearchFilter] = useState({categoryId:"default",saleoff:"all"});
+  const [searchFilter,setSearchFilter] = useState({categoryId:"all",saleoff:"all"});
   const {dispatch} = useContext(searchResultContext);
   useEffect(function(){
     console.log(searchFilter);

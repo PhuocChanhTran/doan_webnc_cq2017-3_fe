@@ -16,7 +16,7 @@ export default function HotCourse() {
                 <Link to={`/courses/category/${item.categoryId}`} class=" hvr-shrink course-item">
                         <img
                             className="course-thumb set-bg"
-                            src={item.categoryImage?`http://localhost:3001/uploads/images/categoryImage.png`:emptyCourse}
+                            src={item.categoryImage?`http://localhost:3001/uploads/images/category.jpg`:emptyCourse}
                             // src={item.categoryImage?`http://localhost:3001/uploads/images/${item.categoryImage}`:emptyCourse}
                         >
                             

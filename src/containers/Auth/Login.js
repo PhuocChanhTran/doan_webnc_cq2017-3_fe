@@ -32,6 +32,13 @@ function Login(){
                     } 
                 })
             }
+            if(res.data.authenticated === "disabled"){
+                Swal.fire({
+                    title: "Opps!",
+                    text:`${res.data.message}`,
+                    confirmButtonText: `OK`
+                })
+            }
             if(res.data.authenticated === "success"){
                 localStorage.accessToken = res.data.accessToken;  
                 localStorage.refreshToken = res.data.refreshToken;  

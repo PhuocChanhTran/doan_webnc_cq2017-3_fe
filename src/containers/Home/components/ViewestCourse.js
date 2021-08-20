@@ -101,7 +101,7 @@ export default function HotCourse() {
                                     ({item.totalReviews} ratings)
                                 </span>
                                 <span>
-                                    <i class="fa fa-eye"></i> {item.viewcount}
+                                    <i class="fa fa-eye"></i> {item.slview}
                                 </span>
                             </h6>
                         
