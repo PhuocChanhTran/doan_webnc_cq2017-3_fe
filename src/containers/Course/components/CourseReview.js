@@ -11,7 +11,7 @@ import io from "socket.io-client";
 
 import Swal from 'sweetalert2';
 const host = "https://bct-onlinecourses-be.herokuapp.com";
-
+let socket;
 export default function Review(){
     const {store,dispatch} = useContext(CourseContext);
     const [rate,setRate]  = useState("");
