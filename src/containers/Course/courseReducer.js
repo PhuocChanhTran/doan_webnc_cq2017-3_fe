@@ -24,7 +24,7 @@ export default function courseReducer(state, action) {
       case 'post-review':
         return{
           ...state,
-          reviews: [...state.reviews,action.payload.newReview]
+          reviews: [action.payload.newReview,...state.reviews]
         }
       case 'initHotCourse':
         return {
