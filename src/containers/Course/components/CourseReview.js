@@ -134,29 +134,35 @@ export default function Review(){
                             <div className="coment-bottom bg-white p-2 px-4">
                                 {store.reviews?
                                 <div>
-                                    {store.reviews.map(r=>(<div className="commented-section mt-2">
-                                    <div className="d-flex flex-row align-items-center commented-user">
-                                        <img className="img-fluid img-responsive rounded-circle mr-2" src={r.userImage?"https://bct-onlinecourses-be.herokuapp.com/uploads/profile/"+r.userImage:emptyUser} width="38"></img>
-                                        <h5 className="mr-2">{r.userFullName}</h5>
-                                        <span className="dot mb-1"></span>
-                                        <div>
-                                            <a className="btn" onClick={()=>btnRatingClicked()}><Rating  emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={2} initialRating={r.review_rating} readonly="true"></Rating></a>
-                                        </div>
-                                        <span className="mb-1 ml-2">{getFormattedDateAllTime(r.timestamp)} hours ago</span>
-                                    </div>
-                                    <div className="comment-text-sm">
-                                        <span>{r.review_feedback}</span>
-                                    </div>
-                                    <div className="reply-section">
-                                        <div className="d-flex flex-row align-items-center voting-icons">
-                                            <i className="fa fa-sort-up fa-2x mt-3 hit-voting"></i>
-                                            <i className="fa fa-sort-down fa-2x mb-3 hit-voting"></i>
-                                            <span className="ml-2">10</span>
-                                            <span className="dot ml-2"></span>
-                                            <h6 className="ml-2 mt-1">Reply</h6>
-                                        </div>
-                                    </div>
-                                </div>))}
+                                    {store.reviews.map(r=>(
+                                        r?(
+                                            <>
+                                                <div className="commented-section mt-2">
+                                                    <div className="d-flex flex-row align-items-center commented-user">
+                                                        <img className="img-fluid img-responsive rounded-circle mr-2" src={r.userImage&&r.userImage.length!==0?"https://bct-onlinecourses-be.herokuapp.com/uploads/profile/"+r.userImage:emptyUser} width="38"></img>
+                                                        <h5 className="mr-2">{r.userFullName}</h5>
+                                                        <span className="dot mb-1"></span>
+                                                        <div>
+                                                            <a className="btn" onClick={()=>btnRatingClicked()}><Rating  emptySymbol="fa fa-star-o fa-sm"  fullSymbol="fa fa-star fa-sm"  fractions={2} initialRating={r.review_rating} readonly="true"></Rating></a>
+                                                        </div>
+                                                        <span className="mb-1 ml-2">{getFormattedDateAllTime(r.timestamp)} hours ago</span>
+                                                    </div>
+                                                    <div className="comment-text-sm">
+                                                        <span>{r.review_feedback}</span>
+                                                    </div>
+                                                    <div className="reply-section">
+                                                        <div className="d-flex flex-row align-items-center voting-icons">
+                                                            <i className="fa fa-sort-up fa-2x mt-3 hit-voting"></i>
+                                                            <i className="fa fa-sort-down fa-2x mb-3 hit-voting"></i>
+                                                            <span className="ml-2">10</span>
+                                                            <span className="dot ml-2"></span>
+                                                            <h6 className="ml-2 mt-1">Reply</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        ):"Null"
+                                    ))}
                                 </div>
                                 :"Course hadn't have any comments! Register course and leave for us some comments ane#@!"
                                 }
