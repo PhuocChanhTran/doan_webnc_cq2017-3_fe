@@ -1,11 +1,11 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
 const defaultValue = {
-    hotCourse:[],
-    popularCourse:[],
-    newCourse:[],
-    topCategories: []
-
+  hotCourse: [],
+  popularCourse: [],
+  newCourse: [],
+  topCategories: [],
+  featuredCourses: [],
 };
 const homeContext = createContext(defaultValue);
 

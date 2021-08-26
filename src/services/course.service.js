@@ -153,6 +153,9 @@ export function getNewCourses(){
 export function getPopularCourses(){
   return axios.get("/courses/popular-courses");
 }
+export function getFeaturedCourses(){
+  return axios.get("/courses/featured-courses");
+}
 export function getViewestCourses(){
   return axios.get("/courses/mostviewest-courses");
 }

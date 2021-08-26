@@ -5,28 +5,37 @@ import "../../App.css";
 import homeReducer from "./homeReducer";
 import homeContext from "./homeContext";
 
-import { getHotCourses, getNewCourses, getPopularCourses,getTopCategories,getViewestCourses } from "../../services/course.service";
+import {
+  getHotCourses,
+  getNewCourses,
+  getPopularCourses,
+  getTopCategories,
+  getViewestCourses,
+  getFeaturedCourses,
+} from "../../services/course.service";
 
 import HotCourse from "./components/HotCourse";
+import SlideShow1 from "./components/SlideShow1";
 import PopularCourse from "./components/PopularCourse";
 import ViewestCourse from "./components/ViewestCourse";
 import NewCourse from "./components/NewCourse";
 import Section from "./components/Section";
-import TopCategories from "./components/TopCategories"
+import TopCategories from "./components/TopCategories";
 export default function Home() {
   const initialHomeState = {
     hotCourse: [],
     popularCourse: [],
     newCourse: [],
     viewestCourses: [],
-    topCategories:[],
+    topCategories: [],
+    featuredCourses: [],
   };
   const [store, dispatch] = useReducer(homeReducer, initialHomeState);
 
   useEffect(function () {
     async function loadHotCourse() {
       const res = await getHotCourses();
-      
+
       if (res.status === 200) {
         dispatch({
           type: "initHotCourse",
@@ -101,6 +110,25 @@ export default function Home() {
         });
       }
     }
+    async function loadFeaturedCourses() {
+      const res = await getFeaturedCourses();
+      if (res.status === 200) {
+        dispatch({
+          type: "initFeaturedCourse",
+          payload: {
+            featuredCourses: res.data,
+          },
+        });
+      }
+      if (res.status === 204) {
+        dispatch({
+          type: "initFeaturedCourse",
+          payload: {
+            featuredCourses: [],
+          },
+        });
+      }
+    }
     async function loadTopCategories() {
       const res = await getTopCategories();
       if (res.status === 200) {
@@ -124,20 +152,24 @@ export default function Home() {
     loadPopularCourse();
     loadNewCourse();
     loadViewestCourses();
-    loadTopCategories()
+    loadTopCategories();
+    loadFeaturedCourses();
   }, []);
 
   return (
     <div>
       <homeContext.Provider value={{ store, dispatch }}>
         <div className="container">
-        <Section></Section>
+          <Section></Section>
 
           <div className="row">
-              <HotCourse> </HotCourse>
-              <ViewestCourse> </ViewestCourse>
-              <NewCourse> </NewCourse>
-              <TopCategories> </TopCategories>
+            <div className="d-flex justify-content-between mb-5 slidesh">
+              <SlideShow1> </SlideShow1>
+            </div>
+            <HotCourse> </HotCourse>
+            <ViewestCourse> </ViewestCourse>
+            <NewCourse> </NewCourse>
+            <TopCategories> </TopCategories>
           </div>
         </div>
       </homeContext.Provider>
